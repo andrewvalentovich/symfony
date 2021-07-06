@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 
+use App\Service\MarkdownParser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
-use Demontpx\ParsedownBundle\Parsedown;
 
 class ArticleController extends AbstractController
 {
@@ -27,8 +25,10 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{slug}", name="app_article_show")
      */
-    public function show($slug, Parsedown $parsedown, AdapterInterface $cache)
+    public function show($slug, MarkdownParser $markdownParser)
     {
+
+   //     dd($cache);
 
         $comments = [
             'Tabes ridetiss, tanquam noster pars.',
@@ -71,12 +71,8 @@ EOF;
 //
 //        $articleContent = $item->get();                         // Получаем кэш
 
-        $articleContent = $cache->get(
-            'markdown_'. md5($articleContent),
-            function () use ($parsedown, $articleContent){
-                return $parsedown->text($articleContent);
-            }
-        );
+
+        $articleContent = $markdownParser->parse($articleContent);
 
         return $this->render('articles/show.html.twig', [
             'article' => ucwords(str_replace('-', ' ', $slug)),
