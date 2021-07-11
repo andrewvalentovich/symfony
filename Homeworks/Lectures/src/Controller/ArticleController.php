@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Service\MarkdownParser;
+use Nexy\Slack\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
@@ -25,8 +26,17 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{slug}", name="app_article_show")
      */
-    public function show($slug, MarkdownParser $markdownParser)
+    public function show($slug, MarkdownParser $markdownParser, Client $slack)
     {
+        $message = $slack->createMessage();
+
+        $message
+            ->from('John Doe')
+            ->withIcon(':ghost:')
+            ->setText('This is an amazing message!')
+        ;
+
+        $slack->sendMessage($message);
 
    //     dd($cache);
 
