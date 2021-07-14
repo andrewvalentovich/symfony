@@ -14,11 +14,9 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(Environment $twig)
+    public function homepage(Environment $twig, $slackUrl)
     {
-//        $html = $twig->render('articles/homepage.html.twig');
-//        
-//        return new Response($html);
+        dd($slackUrl);
     
         return $this->render('articles/homepage.html.twig');
     }
@@ -64,16 +62,6 @@ maecenas. Turpis cursus in hac habitasse platea. Etiam erat velit scelerisque in
 neque vitae tempus quam pellentesque nec nam aliquam. Odio pellentesque diam volutpat commodo
 sed egestas egestas. Egestas dui id ornare arcu odio ut. 
 EOF;
-
-//        $item = $cache->getItem('markdown_'. md5($articleContent));     //создание кэша
-//
-//
-//        if(!$item->isHit()){                                    //Если не существует валидного кэша, то собираем кэш
-//            $item->set($parsedown->text($articleContent));      // Устанавливаем кэш
-//            $cache->save($item);                                // Сохраняем кэш
-//        }
-//
-//        $articleContent = $item->get();                         // Получаем кэш
 
 
         $articleContent = $markdownParser->parse($articleContent);
