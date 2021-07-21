@@ -20,24 +20,17 @@ class ArticleController extends AbstractController
     public function article_page(Environment $twig, ArticleProvider $articleProvider, $id, MarkdownParser $markdownParser, ArticleContentProvider $articleContentProvider)
     {
 
-        $wordArray = [
-          'я',
-          'Андрей',
-          'ты',
-          'человек',
-          'самый',
-          'умный',
-          'вид',
-          'животных'
-        ];
+        $wordArray = ['я', 'Андрей', 'ты', 'человек', 'самый', 'умный', 'вид', 'животных'];
+
+        $word = NULL;
+        $wordCount = 0;
 
         if(rand(0, 10) <= 7){
-            $contentText = $articleContentProvider->get(rand(2, 10), $wordArray[rand(0, 7)], rand(5, 10));
-        }
-        else {
-            $contentText = $articleContentProvider->get(rand(2, 10));
+            $word = $wordArray[rand(0, 7)];
+            $wordCount = rand(2, 12);
         }
 
+        $contentText = $articleContentProvider->get(rand(2, 10), $word, $wordCount);
         $contentText = $markdownParser->parse($contentText);
 
         return $this->render('article/article.html.twig', [

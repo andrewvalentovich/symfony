@@ -50,28 +50,22 @@ class ArticleContentProvider implements ArticleContentProviderInterface
 технологий, а также свежий взгляд на привычные вещи - [безусловно](/) открывает новые горизонты для системы массового участия. Как принято считать, тщательные 
 исследования конкурентов освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, превращены в посмешище, хотя само их 
 существование приносит несомненную пользу обществу.'
-        ];                                          // массив из 5 абзацев
+        ];
 
-        for ($i = 0; $i < $paragraphs; $i++)        // Цикл for формирует основной текст из $paragraphs случайных абзацев
-        {
+        for ($i = 0; $i < $paragraphs; $i++){
             $usedText = $usedText.$text[rand(0,4)].'<br/>';
         }
 
 
-        if ($this->markWordParameter == 'bold')      // Если MARK_ARTICLE_WORDS_WITH_BOLD в .env имеет значение bolc,
-        {                                            // то вставляем слово $word выделенное жирным шрифтом
+        if ($this->markWordParameter == 'bold'){
             $word = ' '.'**'.$word.'**';
         }
 
-        if ($this->markWordParameter == 'italic')      // Если MARK_ARTICLE_WORDS_WITH_BOLD в .env имеет значение italic,
-        {                                              // то вставляем слово $word выделенное курсивным шрифтом
+        if ($this->markWordParameter == 'italic'){
             $word = ' '.'*'.$word.'*';
         }
 
-
-
-        for ($i = 0; $i < $wordsCount; $i++)        // Цикл for вставляет в конечный текст $wordCount слов $word
-        {
+        for ($i = 0; $i < $wordsCount; $i++){
             $usedText = substr_replace(
                 $usedText,
                 $word,
