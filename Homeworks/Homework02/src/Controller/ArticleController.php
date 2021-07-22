@@ -25,7 +25,7 @@ class ArticleController extends AbstractController
         $word = NULL;
         $wordCount = 0;
 
-        if(rand(0, 10) <= 7){
+        if(rand(0, 10) <= 7) {
             $word = $wordArray[rand(0, 7)];
             $wordCount = rand(2, 12);
         }

@@ -52,7 +52,7 @@ class ArticleContentProvider implements ArticleContentProviderInterface
 существование приносит несомненную пользу обществу.'
         ];
 
-        for ($i = 0; $i < $paragraphs; $i++){
+        for ($i = 0; $i < $paragraphs; $i++) {
             $usedText = $usedText.$text[rand(0,4)].'<br/>';
         }
 
@@ -65,7 +65,7 @@ class ArticleContentProvider implements ArticleContentProviderInterface
             $word = ' '.'*'.$word.'*';
         }
 
-        for ($i = 0; $i < $wordsCount; $i++){
+        for ($i = 0; $i < $wordsCount; $i++) {
             $usedText = substr_replace(
                 $usedText,
                 $word,
