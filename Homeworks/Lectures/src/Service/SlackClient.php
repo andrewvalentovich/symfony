@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Service;
 
 
@@ -10,34 +9,27 @@ use Nexy\Slack\Client;
 class SlackClient
 {
     use LoggerTrait;
-    /**
-     * @var Client
-     */
+
+    /** @var Client */
     private $slack;
 
     public function __construct(Client $slack)
     {
         $this->slack = $slack;
     }
-
-    /**
-     * @param MarkdownParser $parser
-     * @required
-     */
-    public function example(MarkdownParser $parser)
+    
+    public function send(string $message, string $from = 'Cat-Cas-Car')
     {
-        dump($parser->parse('#Hello'));
-    }
-
-    public function send(string $message, string $icon = ':ghost:', string $from = 'Andrew')
-    {
-        $this->logInfo('Отправка сообщений в Slack', ['message' => $message]);
-
+        $this->logInfo('Отправка сообщения в Slack', [
+            'message' => $message
+        ]);
+    
         $this->slack->sendMessage(
-            $this->slack->createMessage()
-                        ->from($from)
-                        ->withIcon($icon)
-                        ->setText($message)
+            $this->slack
+                ->createMessage()
+                ->from($from)
+                ->withIcon(':ghost:')
+                ->setText($message)                
         );
     }
 }

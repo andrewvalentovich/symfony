@@ -36,10 +36,10 @@
         "version": "1.8.2"
     },
     "http-interop/http-factory-guzzle": {
-        "version": "1.0.0"
+        "version": "1.2.0"
     },
     "monolog/monolog": {
-        "version": "2.2.0"
+        "version": "2.3.1"
     },
     "nexylan/slack": {
         "version": "v3.1.1"
@@ -48,10 +48,7 @@
         "version": "v2.2.2"
     },
     "nikic/php-parser": {
-        "version": "v4.11.0"
-    },
-    "paragonie/sodium_compat": {
-        "version": "v1.16.1"
+        "version": "v4.12.0"
     },
     "php-http/client-common": {
         "version": "2.4.0"
@@ -146,7 +143,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "ea8c0eda34fda57e7d5cd8cbd889e2a387e3472c"
+            "ref": "fd5340d07d4c90504843b53da41525cf42e31f5c"
         },
         "files": [
             "./bin/console",
@@ -210,7 +207,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "df1f2fe60b8fbb5cf7e26a7af19445c128a13b90"
+            "ref": "5918a9e19931369d8a8c508c6c8135b541f4c9de"
         },
         "files": [
             "./config/bootstrap.php",
@@ -252,7 +249,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.7",
-            "ref": "329f6a5ef2e7aa033f802be833ef8d1268dd0848"
+            "ref": "a7bace7dbc5a7ed5608dbe2165e0774c87175fe6"
         },
         "files": [
             "./config/packages/dev/monolog.yaml",
@@ -314,7 +311,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "5.0",
-            "ref": "fab9149bbaa4d5eca054ed93f9e1b66cc500895d"
+            "ref": "1766a292f47e3bf94bcfc192c2aa090588f9f46d"
         },
         "files": [
             "./config/packages/test/twig.yaml",
@@ -351,7 +348,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.9",
-            "ref": "9399a0bfc6ee7a0c019f952bca46d6a6045dd451"
+            "ref": "12e0ad8155c23b9f9290e8c49215d4ec921cdf71"
         },
         "files": [
             "./assets/app.js",

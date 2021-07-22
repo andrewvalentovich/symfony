@@ -12,13 +12,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ArticleStatisticsCommand extends Command
 {
     protected static $defaultName = 'app:article-statistics';
-    protected static $defaultDescription = 'Выводит статистику статьи';
 
-    protected function configure(): void
+    protected function configure()
     {
         $this
-            ->setDescription(self::$defaultDescription)
-            ->addArgument('slug', InputArgument::REQUIRED, 'Символьный код')
+            ->setDescription('Выводит статистику статьи')
+            ->addArgument('slug', InputArgument::REQUIRED, 'Символьный код статьи')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'Формат вывода', 'text')
         ;
     }
@@ -27,20 +26,20 @@ class ArticleStatisticsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $slug = $input->getArgument('slug');
-
+        
         $data = [
-            'slug'      => $slug,
-            'title'     => ucwords(str_replace('-', '_', $slug)),
-            'like'      => rand(10, 100),
+            'slug' => $slug,
+            'title' => ucwords(str_replace('-', ' ', $slug)),
+            'likes' => rand(10, 100),
         ];
 
-        switch ($input->getOption('format')){
+        switch ($input->getOption('format')) {
             case 'text':
-                $io->table(array_keys($data), [$data]);
-                $io->listing($data);
+                    $io->title($data['slug']);
+                    $io->table(array_keys($data), [$data]);
                 break;
             case 'json':
-                $io->write(json_encode($data));
+                    $io->write(json_encode($data));
                 break;
             default:
                 throw new \Exception('Незнакомый формат вывода');

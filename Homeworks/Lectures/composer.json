@@ -10,13 +10,12 @@
         }
     ],
     "require": {
-        "php": "7.3.28",
+        "php": "^7.3.28",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "demontpx/parsedown-bundle": "^2.0",
         "http-interop/http-factory-guzzle": "^1.0",
         "nexylan/slack-bundle": "^2.2",
-        "paragonie/sodium_compat": "^1.16",
         "php-http/guzzle6-adapter": "^2.0",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "5.0.*",
@@ -30,13 +29,10 @@
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.33",
+        "symfony/maker-bundle": "^1.14",
         "symfony/profiler-pack": "^1.0"
     },
     "config": {
-        "platform": {
-            "php": "7.3.28"
-        },
         "preferred-install": {
             "*": "dist"
         },
