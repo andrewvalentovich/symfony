@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 
-use App\Service\MarkdownParser;
 use App\Service\SlackClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles/{slug}", name="app_article_show")
      */
-    public function show($slug, MarkdownParser $markdownParser, SlackClient $slack)
+    public function show($slug, SlackClient $slack)
     {
         if ($slug === 'slack') {
            $slack->send('Привет, это важное уведомление!');
@@ -57,8 +56,7 @@ maecenas. Turpis cursus in hac habitasse platea. Etiam erat velit scelerisque in
 neque vitae tempus quam pellentesque nec nam aliquam. Odio pellentesque diam volutpat commodo
 sed egestas egestas. Egestas dui id ornare arcu odio ut.
 EOF;
-        $articleContent = $markdownParser->parse($articleContent);
-        
+
         return $this->render('articles/show.html.twig', [
             'article' => ucwords(str_replace('-', ' ', $slug)),
             'articleContent' => $articleContent,
