@@ -39,7 +39,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/api/v1/article_content/", name="article_content", methods={"POST"})
+     * @Route("/api/v1/article_content/", name="app_article_content", methods={"POST"})
      *
      * @param Request $request
      * @param ArticleContentProvider $articleContentProvider
@@ -48,7 +48,6 @@ class ArticleController extends AbstractController
      */
     public function articleContent(Request $request, ArticleContentProvider $articleContentProvider):JsonResponse
     {
-
         $data = json_decode($request->getContent(), true);
         $text = $articleContentProvider->get($data['paragraphs'], $data['word'], $data['wordCount']);
         return new JsonResponse(['text' => $text]);
