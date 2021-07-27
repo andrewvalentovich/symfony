@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f811618231c6b32340802df7e2b6e0f",
+    "content-hash": "aaca59b4c936911d8cc375a31fc24177",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -591,16 +591,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.3.1",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe"
+                "reference": "71312564759a7db5b789296369c1a264efc43aad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/9738e495f288eec0b187e310b7cdbbb285777dbe",
-                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/71312564759a7db5b789296369c1a264efc43aad",
+                "reference": "71312564759a7db5b789296369c1a264efc43aad",
                 "shasum": ""
             },
             "require": {
@@ -671,7 +671,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.3.1"
+                "source": "https://github.com/Seldaek/monolog/tree/2.3.2"
             },
             "funding": [
                 {
@@ -683,7 +683,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-14T11:56:39+00:00"
+            "time": "2021-07-23T07:42:52+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -1183,16 +1183,16 @@
         },
         {
             "name": "php-http/httplug-bundle",
-            "version": "1.21.0",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/HttplugBundle.git",
-                "reference": "cac3c43f756be8e74507cef268c3b094d00f471a"
+                "reference": "a135ee6541599998c62a5bddede5d7fe63bcb669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/cac3c43f756be8e74507cef268c3b094d00f471a",
-                "reference": "cac3c43f756be8e74507cef268c3b094d00f471a",
+                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/a135ee6541599998c62a5bddede5d7fe63bcb669",
+                "reference": "a135ee6541599998c62a5bddede5d7fe63bcb669",
                 "shasum": ""
             },
             "require": {
@@ -1283,29 +1283,29 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/HttplugBundle/issues",
-                "source": "https://github.com/php-http/HttplugBundle/tree/1.21.0"
+                "source": "https://github.com/php-http/HttplugBundle/tree/1.22.1"
             },
-            "time": "2021-07-10T16:04:42+00:00"
+            "time": "2021-07-26T14:22:17+00:00"
         },
         {
             "name": "php-http/logger-plugin",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/logger-plugin.git",
-                "reference": "f53a191c14717eedadc86e6f7fdd19be7a9583c2"
+                "reference": "665b13e726ffe8a17ab04d4b940e4a32bd54b38b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/logger-plugin/zipball/f53a191c14717eedadc86e6f7fdd19be7a9583c2",
-                "reference": "f53a191c14717eedadc86e6f7fdd19be7a9583c2",
+                "url": "https://api.github.com/repos/php-http/logger-plugin/zipball/665b13e726ffe8a17ab04d4b940e4a32bd54b38b",
+                "reference": "665b13e726ffe8a17ab04d4b940e4a32bd54b38b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0",
                 "php-http/client-common": "^1.9 || ^2.0",
                 "php-http/message": "^1.0",
-                "psr/log": "^1.0",
+                "psr/log": "^1.0 || ^2 || ^3",
                 "symfony/polyfill-php73": "^1.17"
             },
             "require-dev": {
@@ -1342,9 +1342,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/logger-plugin/issues",
-                "source": "https://github.com/php-http/logger-plugin/tree/1.2.1"
+                "source": "https://github.com/php-http/logger-plugin/tree/1.2.2"
             },
-            "time": "2020-11-27T10:38:40+00:00"
+            "time": "2021-07-26T14:15:54+00:00"
         },
         {
             "name": "php-http/message",

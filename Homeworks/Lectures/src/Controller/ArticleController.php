@@ -56,7 +56,7 @@ maecenas. Turpis cursus in hac habitasse platea. Etiam erat velit scelerisque in
 neque vitae tempus quam pellentesque nec nam aliquam. Odio pellentesque diam volutpat commodo
 sed egestas egestas. Egestas dui id ornare arcu odio ut.
 EOF;
-
+        
         return $this->render('articles/show.html.twig', [
             'article' => ucwords(str_replace('-', ' ', $slug)),
             'articleContent' => $articleContent,

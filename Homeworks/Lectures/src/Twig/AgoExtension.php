@@ -11,11 +11,11 @@ class AgoExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('ago', [$this, 'gedDiff']),
+            new TwigFilter('ago', [$this, 'getDiff']),
         ];
     }
 
-    public function gedDiff($value)
+    public function getDiff($value)
     {
         return Carbon::make($value)->locale('ru')->diffForHumans();
     }
