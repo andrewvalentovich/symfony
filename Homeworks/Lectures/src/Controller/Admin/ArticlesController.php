@@ -1,49 +1,25 @@
 <?php
 
-namespace App\Controller;
-
+namespace App\Controller\Admin;
 
 use App\Entity\Article;
-use App\Service\SlackClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController extends AbstractController
+class ArticlesController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/admin/articles/create/", name="app_admin_articles_create")
      */
-    public function homepage()
+    public function create(EntityManagerInterface $entityManager)
     {
-        return $this->render('articles/homepage.html.twig');
-    }
-
-    /**
-     * @Route("/articles/{slug}", name="app_article_show")
-     */
-    public function show($slug, SlackClient $slack, EntityManagerInterface $entityManager)
-    {
-        $repository = $entityManager->getRepository(Article::class);
-        $article = $repository->findOneBy(['slug' => $slug]);
-
-        if (! $article) {
-                throw $this->createNotFoundException(sprintf('Статья %s не найдена. 404', $slug));
-        }
-
-
-
-        if ($slug === 'slack') {
-           $slack->send('Привет, это важное уведомление!');
-        }
-    
-        $comments = [
-            'Tabes ridetiss, tanquam noster pars.',
-            'Nunquam contactus galatae.',
-            'Sunt acipenseres anhelare audax, nobilis impositioes.'
-        ];
-
-        $articleContent = <<<EOF
+        $article = new Article();
+        $article
+            ->setTitle('Когда в машинах поставят лоток?')
+            ->setSlug('when-they-put-the-toilet-in-the-car-'. rand(10, 999))
+            ->setBody(<<<EOF
 Lorem ipsum **красная точка** dolor sit amet, consectetur adipiscing elit, sed
 do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna aliqua.
 Purus viverra accumsan in nisl. Diam vulputate ut pharetra sit amet aliquam. Faucibus a
@@ -66,11 +42,20 @@ augue lacus viverra. Dictum non consectetur a erat nam at. Odio ut enim blandit 
 maecenas. Turpis cursus in hac habitasse platea. Etiam erat velit scelerisque in. Auctor
 neque vitae tempus quam pellentesque nec nam aliquam. Odio pellentesque diam volutpat commodo
 sed egestas egestas. Egestas dui id ornare arcu odio ut.
-EOF;
-        
-        return $this->render('articles/show.html.twig', [
-            'article' => $article,
-            'comments' => $comments,
-        ]);
+EOF
+            );
+
+        if(rand(1, 10) > 4) {
+            $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(2, 50))));
+        }
+
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        return new Response(sprintf(
+            'Создана статья id: %d, slug: %s',
+            $article->getId(),
+            $article->getSlug()
+        ));
     }
 }
