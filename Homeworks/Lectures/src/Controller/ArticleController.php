@@ -4,8 +4,8 @@ namespace App\Controller;
 
 
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use App\Service\SlackClient;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,29 +14,23 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(ArticleRepository $repository)
     {
-        return $this->render('articles/homepage.html.twig');
+        $articles = $repository->findLatestPublished();
+        return $this->render('articles/homepage.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
      * @Route("/articles/{slug}", name="app_article_show")
      */
-    public function show($slug, SlackClient $slack, EntityManagerInterface $entityManager)
+    public function show(Article $article, SlackClient $slack)
     {
-        $repository = $entityManager->getRepository(Article::class);
-        $article = $repository->findOneBy(['slug' => $slug]);
-
-        if (! $article) {
-                throw $this->createNotFoundException(sprintf('Статья %s не найдена. 404', $slug));
+        if ($article->getSlug() === 'slack') {
+            $slack->send('Привет, это важное уведомление!');
         }
 
-
-
-        if ($slug === 'slack') {
-           $slack->send('Привет, это важное уведомление!');
-        }
-    
         $comments = [
             'Tabes ridetiss, tanquam noster pars.',
             'Nunquam contactus galatae.',
