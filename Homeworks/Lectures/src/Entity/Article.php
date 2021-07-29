@@ -37,6 +37,21 @@ class Article
      */
     private $publishedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $likeCount;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imgFileName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,5 +103,63 @@ class Article
         $this->publishedAt = $publishedAt;
 
         return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getLikeCount(): ?int
+    {
+        return $this->likeCount;
+    }
+
+    public function setLikeCount(?int $likeCount): self
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    public function getImgFileName(): ?string
+    {
+        return $this->imgFileName;
+    }
+
+    public function setImgFileName(?string $imgFileName): self
+    {
+        $this->imgFileName = $imgFileName;
+
+        return $this;
+    }
+
+    public function getImagePath()
+    {
+        return 'images/' . $this->getImgFileName();
+    }
+
+    public function getAuthorAvatarPath()
+    {
+        return 'https://robohash.org/' . $this->getAuthor() . 'png?set=set4';
+    }
+
+    public function like()
+    {
+        $this->likeCount++;
+        return $this->likeCount;
+    }
+
+    public function dislike()
+    {
+        $this->likeCount--;
+        return $this->likeCount;
     }
 }

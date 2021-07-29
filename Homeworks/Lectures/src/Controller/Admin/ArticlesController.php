@@ -49,6 +49,14 @@ EOF
             $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(2, 50))));
         }
 
+        $articleImages = ['car1.jpg', 'car2.jpg', 'car3.jpeg'];
+
+        $article
+            ->setAuthor('Анонимный автор')
+            ->setLikeCount(rand(1, 99999))
+            ->setImgFileName($articleImages[rand(0,2)])
+        ;
+
         $entityManager->persist($article);
         $entityManager->flush();
 
