@@ -65,6 +65,13 @@ class ArticleContentProvider implements ArticleContentProviderInterface
             $word = ' '.'*'.$word.'*';
         }
 
+        $usedText = $this->addWord($wordsCount, $usedText, $word);
+
+        return $usedText;
+    }
+
+    public function addWord(int $wordsCount, string $usedText, string $word = NULL): string
+    {
         for ($i = 0; $i < $wordsCount; $i++) {
             $usedText = substr_replace(
                 $usedText,
