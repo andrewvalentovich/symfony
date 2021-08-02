@@ -31,6 +31,8 @@ class ArticleController extends AbstractController
             $slack->send('Привет, это важное уведомление!');
         }
 
+        dd($article);
+
         $comments = [
             'Tabes ridetiss, tanquam noster pars.',
             'Nunquam contactus galatae.',

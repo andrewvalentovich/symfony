@@ -62,13 +62,13 @@ class ArticlesCreateController extends AbstractController
         $article
             ->setTitle($titleArray[$triple])
             ->setSlug(sprintf('%s-%d', $slugArray[$triple], rand(0, 99999)))
-            ->setDescription(substr($contentText, 0, stripos($contentText, ' ', 80)))
+            ->setDescription(str_replace('&emsp;', '', substr($contentText, 0, stripos($contentText, ' ', 80))))
             ->setBody($contentText)
             ->setAuthor($authorArray[$triple])
             ->setKeywords(sprintf('%s, %s, %s', $wordArray[rand(0, 7)], $wordArray[rand(0, 7)], $wordArray[rand(0, 7)]))
             ->setVoteCount(rand(-200, 200))
             ->setImageFilename(sprintf('images/%s', $filenameArray[$triple]))
-            ->setPublishedAt(new \DateTime(sprintf(`-%d days`, rand(2, 60))));
+            ->setPublishedAt(new \DateTime(sprintf('-%d days', rand(2, 60))));
 
         $em->persist($article);
         $em->flush();

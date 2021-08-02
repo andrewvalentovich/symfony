@@ -15,7 +15,7 @@
                                 <div class="col-auto d-block">
                                     <img class="article-img" src="{{ asset(articles.imageFilename) }}">
                                 </div>
-                                <a class="col px-4 d-flex flex-column article-item" href="{{ path('app_article_page', { id : articles.slug }) }}">
+                                <a class="col px-4 d-flex flex-column article-item" href="{{ path('app_article_page', { slug : articles.slug }) }}">
                                     <h5 class="mb-2">{{ articles.title }}</h5>
                                     <div class="d-flex mb-2">
                                         <div class="text-muted align-self-center"><img class="article-author-img rounded-circle" src="https://robohash.org/{{ articles.author }}.png?set=set{{ articles.slug }}">{{ articles.author }}</div>
@@ -27,7 +27,7 @@
                                         <span class="badge badge-pill badge-secondary mr-2">Css</span>
                                     </div>
                                     <div class="mb-2 text-muted">
-                                        <p>{{ articles.description }}</p>
+                                        <p>{{ articles.description|cached_markdown }}</p>
                                     </div>
                                 </a>
                             </div>

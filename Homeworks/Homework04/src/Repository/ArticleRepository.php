@@ -30,6 +30,16 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
+    public function selectBySlug($slug)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
