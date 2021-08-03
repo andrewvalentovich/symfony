@@ -174,4 +174,14 @@ class Article
 
         return $this;
     }
+
+    public function setVoteUp(){
+        $this->voteCount++;
+        return $this->voteCount;
+    }
+
+    public function setVoteDown(){
+        $this->voteCount--;
+        return $this->voteCount;
+    }
 }

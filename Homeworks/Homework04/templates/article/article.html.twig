@@ -25,10 +25,10 @@
                     <span class="badge badge-pill badge-secondary mr-2">Рукопоп</span>
                 </div>
                 <div class="mb-2">
-                    <div class="text-muted align-self-center article-detail-arrows">
-                        <span class="{{ (article.voteCount > 0) ? 'text-success' : 'text-danger' }}">{{ article.voteCount }}</span>
-                        <button class="btn btn-success ml-3"><i class="fas fa-arrow-up"></i></button>
-                        <button class="btn btn-danger"><i class="fas fa-arrow-down"></i></button>
+                    <div data-id="voteBlock" class="text-muted align-self-center article-detail-arrows">
+                        <span class="voteCount {{ (article.voteCount > 0) ? 'text-success' : 'text-danger' }}" data-id="voteCount">{{ article.voteCount }}</span>
+                        <button class="btn btn-success ml-3" data-href="/articles/{{ article.slug }}/vote/up" data-id="voteButton"><i class="fas fa-arrow-up"></i></button>
+                        <button class="btn btn-danger" data-href="/articles/{{ article.slug }}/vote/down" data-id="voteButton"><i class="fas fa-arrow-down"></i></button>
                     </div>
                 </div>
             </div>
