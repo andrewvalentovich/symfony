@@ -4,6 +4,6 @@
 
 {% block content %}
 
-    {{ article.slug }}
+    {{ article.body|cached_markdown }}
 
 {% endblock %}

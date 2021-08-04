@@ -56,16 +56,20 @@ class ArticleContentProvider implements ArticleContentProviderInterface
             $usedText = $usedText.$text[rand(0,4)].'<br/>';
         }
 
+        if ($word != null) {
+            switch ($this->markWordParameter) {
+                case 'bold':
+                    $word = ' '.'**'.$word.'**';
+                    break;
 
-        if ($this->markWordParameter == 'bold'){
-            $word = ' '.'**'.$word.'**';
+                case 'italic':
+                    $word = ' '.'*'.$word.'*';
+                    break;
+            }
+
+            $usedText = $this->addWord($wordsCount, $usedText, $word);
         }
 
-        if ($this->markWordParameter == 'italic'){
-            $word = ' '.'*'.$word.'*';
-        }
-
-        $usedText = $this->addWord($wordsCount, $usedText, $word);
 
         return $usedText;
     }

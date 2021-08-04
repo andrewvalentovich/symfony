@@ -27,8 +27,8 @@
                 <div class="mb-2">
                     <div data-id="voteBlock" class="text-muted align-self-center article-detail-arrows">
                         <span class="voteCount {{ (article.voteCount > 0) ? 'text-success' }} {{ (article.voteCount < 0) ? 'text-danger' }}" data-id="voteCount">{{ article.voteCount }}</span>
-                        <button class="btn btn-success ml-3" data-href="/articles/{{ article.slug }}/vote/up" data-id="voteButton"><i class="fas fa-arrow-up"></i></button>
-                        <button class="btn btn-danger" data-href="/articles/{{ article.slug }}/vote/down" data-id="voteButton"><i class="fas fa-arrow-down"></i></button>
+                        <button class="btn btn-success ml-3" data-href="{{ path('app_voting', { slug: article.slug, type: 'up'}) }}" data-id="voteButton"><i class="fas fa-arrow-up"></i></button>
+                        <button class="btn btn-danger" data-href="{{ path('app_voting', { slug: article.slug, type: 'down'}) }}" data-id="voteButton"><i class="fas fa-arrow-down"></i></button>
                     </div>
                 </div>
             </div>
