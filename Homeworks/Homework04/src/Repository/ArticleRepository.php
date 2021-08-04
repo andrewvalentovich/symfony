@@ -19,7 +19,7 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function selectPublishedLatest()
+    public function getPublishedLatest()
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.publishedAt IS NOT NULL')
@@ -29,29 +29,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
-    public function selectBySlug($slug)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-
-    public function VoteCountUp($slug)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.slug = :slug')
-            ->setParameter('slug', $slug)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-
 
     // /**
     //  * @return Article[] Returns an array of Article objects

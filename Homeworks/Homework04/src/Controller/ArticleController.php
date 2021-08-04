@@ -19,16 +19,10 @@ class ArticleController extends AbstractController
      */
     public function article_page($slug, ArticleRepository $repository)
     {
-
-        $article = $repository->selectBySlug($slug);
-
-        #dd($article);
-
         return $this->render('article/article.html.twig', [
-            'article'       =>      $article[0]
+            'article'       =>      $repository->findOneBy(array('slug' => $slug))
         ]);
     }
-
 
     /**
      * @Route("/api/v1/article_content/", name="app_article_content", methods={"POST"})

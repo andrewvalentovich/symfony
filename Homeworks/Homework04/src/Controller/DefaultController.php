@@ -14,7 +14,7 @@ class DefaultController extends AbstractController
     */
     public function homepage(ArticleRepository $repository)
     {
-        $articles = $repository->selectPublishedLatest();
+        $articles = $repository->getPublishedLatest();
 
         return $this->render('default/homepage.html.twig', [
             "articles"      => $articles,
