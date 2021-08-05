@@ -17,7 +17,7 @@ class ArticlesCreateController extends AbstractController
     {
         $wordArray = ['статья', 'новость', 'ИТ', 'технологии', 'инженерия', 'роботы', 'производство', 'хакинг'];
 
-        (rand(0, 10) <= 7) ? $word = $wordArray[rand(0, 7)] : $word = null;
+        $word = (rand(0, 10) <= 7) ? $wordArray[rand(0, 7)] : null;
 
         $contentText = $articleContentProvider->get(rand(2, 10), $word, rand(2, 12));
 
