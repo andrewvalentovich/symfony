@@ -16,6 +16,20 @@
 composer install
 ```
 
+**Сконфигурируйте файл .env**
+
+Обязательный параметр для конфигурации: `DATABASE_URL`.
+
+**Установка Базы данных**
+
+Убедитесь что параметр `DATABASE_URL` настроен корректно, и выполните следующие команды
+
+```
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+```
+
+
 **Скомпилируйте Webpack Encoder Assets**
 
 Убедитесь, что у вас установлен [yarn](https://yarnpkg.com/lang/en/),

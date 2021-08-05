@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleLikeController extends AbstractController
 {
     /**
-     * @Route("/articles/{id}/like/{type<like|dislike>}", methods={"POST"}, name="app_article_like")
+     * @Route("/articles/{slug}/like/{type<like|dislike>}", methods={"POST"}, name="app_article_like")
      */
     public function like(Article $article, $type, LoggerInterface $logger, EntityManagerInterface $em)
     {
@@ -23,7 +23,7 @@ class ArticleLikeController extends AbstractController
             $article->dislike();
             $logger->info('Какая досада, дизлайк');
         }
-
+        
         $em->flush();
         
         return $this->json(['likes' => $article->getLikeCount()]);

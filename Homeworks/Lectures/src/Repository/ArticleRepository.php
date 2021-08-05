@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,51 +23,34 @@ class ArticleRepository extends ServiceEntityRepository
      /**
       * @return Article[] Returns an array of Article objects
       */
-
     public function findLatestPublished()
     {
-        $qb = $this->getOrCreateQueryBuilder();
-
-        return $this->published($this->latest($qb))
-            ->setMaxResults(8)
+        return $this->published($this->latest())
             ->getQuery()
             ->getResult()
         ;
     }
-
-    public function findLatest(QueryBuilder $qb = null)
+    
+     /**
+      * @return Article[] Returns an array of Article objects
+      */
+    public function findLatest()
     {
-        return $this->latest($qb)
+        return $this->latest()
             ->getQuery()
             ->getResult()
-            ;
+        ;
     }
-
-    public function findPublished(QueryBuilder $qb = null)
+    
+     /**
+      * @return Article[] Returns an array of Article objects
+      */
+    public function findPublished()
     {
-        return $this->published($qb)
+        return $this->published()            
             ->getQuery()
             ->getResult()
-            ;
-    }
-
-    /**
-     * @param QueryBuilder|null $qb
-     * @return QueryBuilder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $qb = null): QueryBuilder
-    {
-        return $qb ?? $this->createQueryBuilder('a');
-    }
-
-    private function published(QueryBuilder $qb = null)
-    {
-        return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
-    }
-
-    private function latest(QueryBuilder $qb = null)
-    {
-        return $this->getOrCreateQueryBuilder($qb)->OrderBy('a.publishedAt', 'DESC');
+        ;
     }
 
     /*
@@ -81,4 +64,23 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    private function published(QueryBuilder $qb = null)
+    {
+        return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
+    }
+    
+    private function latest(QueryBuilder $qb = null)
+    {
+        return $this->getOrCreateQueryBuilder($qb)->orderBy('a.publishedAt', 'DESC');
+    }
+
+    /**
+     * @param QueryBuilder $qb
+     * @return QueryBuilder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $qb = null): QueryBuilder
+    {
+        return $qb ?? $this->createQueryBuilder('a');
+    }
 }

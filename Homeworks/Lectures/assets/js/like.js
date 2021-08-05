@@ -9,7 +9,7 @@ $(function () {
       e.preventDefault();
       
       const type = $container.data('type');
-      const href = $container.data(type + 'Href');
+      const href = $container.data(`${type}Href`);
       
       $.ajax({
         url: href,

@@ -11,14 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticlesController extends AbstractController
 {
     /**
-     * @Route("/admin/articles/create/", name="app_admin_articles_create")
+     * @Route("/admin/articles/create", name="admin_articles_create")
      */
-    public function create(EntityManagerInterface $entityManager)
+    public function create(EntityManagerInterface $em)
     {
         $article = new Article();
         $article
-            ->setTitle('Когда в машинах поставят лоток?')
-            ->setSlug('when-they-put-the-toilet-in-the-car-'. rand(10, 999))
+            ->setTitle('Есть ли жизнь после девятой жизни?')
+            ->setSlug('is-there-life-after-the-ninth-life-' . rand(100, 999))
             ->setBody(<<<EOF
 Lorem ipsum **красная точка** dolor sit amet, consectetur adipiscing elit, sed
 do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna aliqua.
@@ -43,25 +43,22 @@ maecenas. Turpis cursus in hac habitasse platea. Etiam erat velit scelerisque in
 neque vitae tempus quam pellentesque nec nam aliquam. Odio pellentesque diam volutpat commodo
 sed egestas egestas. Egestas dui id ornare arcu odio ut.
 EOF
-            );
-
-        if(rand(1, 10) > 4) {
-            $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(2, 50))));
+);
+        if (rand(1, 10) > 4) {
+            $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(0, 100))));
         }
-
-        $articleImages = ['car1.jpg', 'car2.jpg', 'car3.jpeg'];
-
+        
         $article
-            ->setAuthor('Анонимный автор')
-            ->setLikeCount(rand(1, 99999))
-            ->setImgFileName($articleImages[rand(0,2)])
+            ->setAuthor('Барон Сосискин')
+            ->setLikeCount(rand(0, 10))
+            ->setImageFilename('car1.jpg')
         ;
-
-        $entityManager->persist($article);
-        $entityManager->flush();
-
+        
+        $em->persist($article);
+        $em->flush();
+        
         return new Response(sprintf(
-            'Создана статья id: %d, slug: %s',
+        'Создана новая статья id: #%d slug: %s',
             $article->getId(),
             $article->getSlug()
         ));

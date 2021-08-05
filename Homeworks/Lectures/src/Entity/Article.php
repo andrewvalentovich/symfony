@@ -2,17 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
 class Article
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -50,7 +49,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imgFileName;
+    private $imageFilename;
 
     public function getId(): ?int
     {
@@ -128,38 +127,41 @@ class Article
 
         return $this;
     }
-
-    public function getImgFileName(): ?string
-    {
-        return $this->imgFileName;
-    }
-
-    public function setImgFileName(?string $imgFileName): self
-    {
-        $this->imgFileName = $imgFileName;
-
-        return $this;
-    }
-
-    public function getImagePath()
-    {
-        return 'images/' . $this->getImgFileName();
-    }
-
-    public function getAuthorAvatarPath()
-    {
-        return 'https://robohash.org/' . $this->getAuthor() . 'png?set=set4';
-    }
-
+    
     public function like()
     {
         $this->likeCount++;
-        return $this->likeCount;
+        return $this;
     }
-
+    
     public function dislike()
     {
         $this->likeCount--;
-        return $this->likeCount;
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+    
+    public function getImagePath()
+    {
+        return 'images/' . $this->getImageFilename();
+    }
+    
+    public function getAuthorAvatarPath()
+    {
+        return sprintf(
+            'https://robohash.org/%s.png?set=set4',
+            str_replace(' ', '_', $this->getAuthor())
+        );
     }
 }
