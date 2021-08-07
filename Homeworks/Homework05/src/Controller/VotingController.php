@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VotingController extends AbstractController
 {
     /**
-     * @Route("/articles/{slug}/vote/{type<up|down>}", name="app_voting", methods={"POST"})
+     * @Route("/articles/{slug}/vote/{type<up|down>}", name="app_voting", methods={"GET"})
      */
     public function vote(Article $article, $slug, $type, EntityManagerInterface $em)
     {
@@ -22,6 +22,6 @@ class VotingController extends AbstractController
 
         $em->flush();
 
-        return $this->json(['votes' => $article->getVoteCount()]);
+        return $this->json(['votes' => $article->getVoteCount(), 'slug' => $slug]);
     }
 }

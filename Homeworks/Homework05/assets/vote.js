@@ -12,7 +12,7 @@ $(function () {
 
             $.ajax({
                 url: href,
-                method: 'POST'
+                method: 'GET'
             }).then(function (data) {
                 const $voteCount = $container.find('[data-id=voteCount]');
 
