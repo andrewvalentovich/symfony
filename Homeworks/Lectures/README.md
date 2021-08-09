@@ -1,6 +1,6 @@
-# Учебный проект по Symfony Модуль 4: "Библиотека работы с базой данных Doctrine Orm"
+# Учебный проект по Symfony Модуль 6-7: "Связи в Doctrine"
 ## Cat-Cas-Car
-Это учебный проект по фреймворку Symfony на курсе Skillbox. Модуль 4: "Библиотека работы с базой данных Doctrine Orm"
+Это учебный проект по фреймворку Symfony на курсе Skillbox. Модуль 6-7: "Связи в Doctrine"
  
 Автор курса: **[Волков Михаил](https://mvsvolkov.ru)**
 
@@ -9,7 +9,7 @@
 
 **Установите зависимости**
 
-Для этого вам понадобится [установленный Composer](https://getcomposer.org/download/),
+Для этого вам понадобится [установленный Composer](https://getcomposer.org/download/)
 а затем выполните:
 
 ```
@@ -27,12 +27,13 @@ composer install
 ```
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixtures:load
 ```
 
 
 **Скомпилируйте Webpack Encoder Assets**
 
-Убедитесь, что у вас установлен [yarn](https://yarnpkg.com/lang/en/),
+Убедитесь, что у вас установлен [yarn](https://yarnpkg.com/lang/en/)
 а затем выполните:
 
 ```

@@ -15,6 +15,6 @@ class ArticlesController extends AbstractController
      */
     public function create(EntityManagerInterface $em)
     {
-        return new Response('А вот');
+        return new Response('Здесь будет страница создания статьи');
     }
 }

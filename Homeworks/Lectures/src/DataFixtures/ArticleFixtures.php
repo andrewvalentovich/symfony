@@ -3,7 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
 class ArticleFixtures extends BaseFixtures
@@ -17,7 +18,7 @@ class ArticleFixtures extends BaseFixtures
 
     private static $articleAuthors = [
         'Николай',
-        'Mr. White',
+        'Mr White',
         'Барон Сосискин',
         'Сметанка',
         'Рыжик',
@@ -31,19 +32,13 @@ class ArticleFixtures extends BaseFixtures
 
     public function loadData(ObjectManager $manager)
     {
-        $this->faker = Factory::create();
-
         $this->createMany(Article::class, 10, function (Article $article) {
             $article
                 ->setTitle($this->faker->randomElement(self::$articleTitles))
                 ->setBody('Lorem ipsum **красная точка** dolor sit amet, consectetur adipiscing elit, sed
-do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna aliqua.
-Purus viverra accumsan in nisl. Diam vulputate ut pharetra sit amet aliquam. Faucibus a
-pellentesque sit amet porttitor eget dolor morbi non. Est ultricies integer quis auctor
-elit sed. Tristique nulla aliquet enim tortor at. Tristique et egestas quis ipsum. Consequat semper viverra nam
-libero. Lectus quam id leo in vitae turpis. In eu mi bibendum neque egestas congue
-quisque egestas diam. **Красная точка** blandit turpis cursus in hac habitasse platea dictumst quisque.
-'. $this->faker->paragraph($this->faker->numberBetween(20, 40), true));
+do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna aliqua
+' . $this->faker->paragraphs($this->faker->numberBetween(2, 5), true))
+            ;
 
             if ($this->faker->boolean(60)) {
                 $article->setPublishedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
@@ -51,7 +46,7 @@ quisque egestas diam. **Красная точка** blandit turpis cursus in hac
 
             $article
                 ->setAuthor($this->faker->randomElement(self::$articleAuthors))
-                ->setLikeCount(rand(0, 10))
+                ->setLikeCount($this->faker->numberBetween(0, 10))
                 ->setImageFilename($this->faker->randomElement(self::$articleImages))
             ;
 
