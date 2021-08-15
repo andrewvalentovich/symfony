@@ -32,15 +32,8 @@ class ArticleController extends AbstractController
            $slack->send('Привет, это важное уведомление!');
         }
 
-        $comments = [
-            'Tabes ridetiss, tanquam noster pars.',
-            'Nunquam contactus galatae.',
-            'Sunt acipenseres anhelare audax, nobilis impositioes.'
-        ];
-        
         return $this->render('articles/show.html.twig', [
             'article' => $article,
-            'comments' => $comments,
         ]);
     }
 }

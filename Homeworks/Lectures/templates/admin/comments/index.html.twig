@@ -17,6 +17,18 @@
             <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
         </div>
     </div>
+
+    <div class="input-group mb-3">
+        <div class="form-check">
+            <input id="showDeletedIn"
+                   type="checkbox"
+                   name="showDeleted"
+                   class="form-check-input"
+                   {% if app.request.query.has('showDeleted') %} checked {% endif %}
+            >
+            <label for="showDeletedIn" class="form-check-label">Показать удалённые</label>
+        </div>
+    </div>
 </form>
 
 
@@ -33,13 +45,13 @@
     {% for comment in comments %}
         <tr>
             <td>
-                <a href="#">
-                    {{ comment.articleTitle }}
+                <a href="{{ path('app_article_show', { slug: comment.article.slug }) }}">
+                    {{ comment.article.title }}
                 </a>
             </td>
             <td>{{ comment.authorName }}</td>
-            <td style="width: 20%;">{{ comment.comment|u.truncate(40) }}...</td>
-            <td>{{ comment.createdAt|ago }}</td>
+            <td style="width: 20%;">{{ comment.content|u.truncate(40) }}...</td>
+            <td>{{ comment.createdAt|ago }} {% if comment.deletedAt %} DELETED {% endif %}</td>
         </tr>
     {% else %}
         <tr>
