@@ -3,13 +3,19 @@
 
 namespace App\Homework;
 
+use App\Homework\PasteWords\PasteWords;
 
 class CommentContentProvider implements CommentContentProviderInterface
 {
-
     /**
      * CommentContentProvider constructor.
      */
+    private $pasteWords;
+
+    public function __construct(PasteWords $pasteWords)
+    {
+        $this->pasteWords = $pasteWords;
+    }
 
     public function get(string $word = null, int $wordsCount = 0): string
     {
@@ -25,25 +31,6 @@ class CommentContentProvider implements CommentContentProviderInterface
 объявлены нарушающими общечеловеческие нормы этики и морали.'
         ];
 
-        $text = $content[rand(0, 4)];
-
-        if (rand(0, 10) <= 7) {
-
-            if ($word != null) {
-
-                for ($i = 0; $i < $wordsCount; $i++) {
-                    $text = substr_replace(
-                        $text,
-                        ' '.$word,
-                        stripos($text, ' ', rand(0, iconv_strlen($text, 'UTF-8'))),
-                        0
-                    );
-                }
-
-            }
-
-        }
-
-        return $text;
+        return $this->pasteWords->paste($content[rand(0, 4)], $word, $wordsCount);
     }
 }
