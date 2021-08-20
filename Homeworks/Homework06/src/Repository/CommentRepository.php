@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
@@ -26,8 +27,30 @@ class CommentRepository extends ServiceEntityRepository
     public function findLastByCreated()
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.createdAt', 'ASC')
+            ->orderBy('c.createdAt', 'DESC')
             ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllWithSearchAndSoftDel(string $search = null, string $showDelete)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if ($search != null) {
+            $qb
+                ->andWhere('c.content LIKE :search AND c.authorName LIKE :search')
+                ->setParameter('val', "%$search%")
+            ;
+        }
+
+        if ($showDelete) {
+            $this->getEntityManager()->getFilters()->disable('softdeleteable');
+        }
+
+        return $qb
+            ->orderBy('c.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
