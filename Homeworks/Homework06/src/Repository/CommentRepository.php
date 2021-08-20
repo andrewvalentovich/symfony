@@ -40,8 +40,8 @@ class CommentRepository extends ServiceEntityRepository
 
         if ($search != null) {
             $qb
-                ->andWhere('c.content LIKE :search AND c.authorName LIKE :search')
-                ->setParameter('val', "%$search%")
+                ->andWhere('c.content LIKE :search OR c.authorName LIKE :search')
+                ->setParameter('search', "%$search%")
             ;
         }
 

@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Comment;
 use App\Homework\ArticleContentProvider;
+use App\Homework\CommentContentProvider;
 use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixtures
@@ -31,10 +32,12 @@ class ArticleFixtures extends BaseFixtures
     /**
      * ArticleFixtures constructor.
      */
+    private $commentContentProvider;
     private $articleContentProvider;
 
-    public function __construct(ArticleContentProvider $articleContentProvider)
+    public function __construct(CommentContentProvider $commentContentProvider, ArticleContentProvider $articleContentProvider)
     {
+        $this->commentContentProvider = $commentContentProvider;
         $this->articleContentProvider = $articleContentProvider;
     }
 
@@ -76,7 +79,7 @@ class ArticleFixtures extends BaseFixtures
     {
         $comment = (new Comment())
             ->setAuthorName('Усатый-Полосатый')
-            ->setContent($this->faker->paragraph)
+            ->setContent($this->commentContentProvider->get('Моёслово', $this->faker->numberBetween(1, 5)))
             ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 day'))
             ->setArticle($article);
 
@@ -94,7 +97,7 @@ class ArticleFixtures extends BaseFixtures
 
         $word = (rand(0, 10) <= 7) ? $wordArray[rand(0, 7)] : null;
 
-        $contentText = $this->articleContentProvider->get(rand(1, 2), $word, rand(2, 12));
+        $contentText = $this->articleContentProvider->get(1, $word, rand(1, 5));
 
         if (strlen($contentText) >= 990) {
             $contentText = substr($contentText, 0, stripos($contentText, ' ', 990));
