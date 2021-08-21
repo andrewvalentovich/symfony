@@ -43,8 +43,7 @@ class ArticleFixtures extends BaseFixtures
 
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(Article::class, 10, function($article) use ($manager)
-        {
+        $this->createMany(Article::class, 10, function($article) use ($manager) {
             $article
                 ->setTitle($this->faker->randomElement(self::$titleArray))
                 ->setDescription($this->faker->realText(100, 1))
@@ -79,7 +78,10 @@ class ArticleFixtures extends BaseFixtures
     {
         $comment = (new Comment())
             ->setAuthorName('Усатый-Полосатый')
-            ->setContent($this->commentContentProvider->get('Моёслово', $this->faker->numberBetween(1, 5)))
+            ->setContent($this->commentContentProvider->get(
+                'Моёслово',
+                $this->faker->numberBetween(1, 5)
+            ))
             ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 day'))
             ->setArticle($article);
 

@@ -24,11 +24,11 @@ class CommentRepository extends ServiceEntityRepository
     //  * @return Comment[] Returns an array of Comment objects
     //  */
 
-    public function findLastByCreated()
+    public function findLastOrderByCreatedAt(int $count = null)
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.createdAt', 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults($count)
             ->getQuery()
             ->getResult()
         ;

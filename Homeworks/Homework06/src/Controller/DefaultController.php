@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
     public function homepage(ArticleRepository $articleRepository, CommentRepository $commentRepository)
     {
         $articles = $articleRepository->getPublishedLatest();
-        $comments = $commentRepository->findLastByCreated();
+        $comments = $commentRepository->findLastOrderByCreatedAt(3);
 
         return $this->render('default/homepage.html.twig', [
             "articles"      => $articles,
