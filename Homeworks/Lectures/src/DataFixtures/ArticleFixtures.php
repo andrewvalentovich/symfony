@@ -3,10 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
-use App\Entity\Comment;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
+use Doctrine\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixtures
 {
@@ -51,29 +48,6 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
                 ->setImageFilename($this->faker->randomElement(self::$articleImages))
             ;
 
-            for ($i = 0; $i < $this->faker->numberBetween(2, 10); $i++) {
-                $this->addComment($article, $manager);
-            }
-
         });
-    }
-
-    /**
-     * @param Article $article
-     * @param ObjectManager $manager
-     */
-    private function addComment(Article $article, ObjectManager $manager): void
-    {
-        $comment = (new Comment())
-            ->setAuthorName('Усатый-Полосатый')
-            ->setContent($this->faker->paragraph)
-            ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 day'))
-            ->setArticle($article);
-
-        if($this->faker->boolean(50)) {
-            $comment->setDeletedAt($this->faker->dateTimeThisMonth);
-        }
-
-        $manager->persist($comment);
     }
 }

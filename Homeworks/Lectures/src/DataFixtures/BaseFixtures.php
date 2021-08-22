@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -25,7 +25,7 @@ abstract class BaseFixtures extends Fixture
     }
     
     abstract function loadData(ObjectManager $manager);
-    
+
     protected function create(string $className, callable $factory)
     {
         $entity = new $className();
@@ -39,7 +39,9 @@ abstract class BaseFixtures extends Fixture
     protected function createMany(string $className, int $count, callable $factory)
     {
         for ($i = 0; $i < $count; $i++) {
-            $this->create($className, $factory);
+            $entity = $this->create($className, $factory);
+
+            $this->addReference("$className|$i", $entity);
         }
     }
 }

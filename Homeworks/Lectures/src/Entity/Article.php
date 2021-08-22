@@ -191,19 +191,6 @@ class Article
         return $this->comments;
     }
 
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getNonDeletedComments(): Collection
-    {
-        $criteria = Criteria::create()
-            ->andWhere(Criteria::expr()->isNull('deletedAt'))
-            ->orderBy(['createdAt' => 'DESC'])
-        ;
-
-        return $this->comments->matching($criteria);
-    }
-
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -216,7 +203,8 @@ class Article
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
             if ($comment->getArticle() === $this) {
                 $comment->setArticle(null);
@@ -224,5 +212,18 @@ class Article
         }
 
         return $this;
+    }
+    
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getNonDeletedComments(): Collection
+    {
+        return $this->comments;
+//        $criteria = Criteria::create()
+//            ->andWhere(Criteria::expr()->isNull('deletedAt'))
+//            ->orderBy(['createdAt' => 'DESC'])
+//        ;
+//        return $this->comments->matching($criteria);
     }
 }

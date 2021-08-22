@@ -18,31 +18,27 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
-
+    
     public function findAllWithSearch(?string $search, bool $withSoftDeletes = false)
     {
         $qb = $this->createQueryBuilder('c');
-
-
-        if ($withSoftDeletes) {
-
-            if ($search) {
-                $qb
-                    ->andWhere('c.deletedAt IS NOT NULL')
-                    ->andWhere('c.content LIKE :search OR c.authorName LIKE :search')
-                    ->setParameter('search', "%$search%")
-                ;
-            }
-
-        } else {
-
+        
+        $qb
+            ->innerJoin('c.article', 'a')
+            ->addSelect('a')
+        ;
+        
+        if ($search) {
             $qb
-                ->andWhere('c.content LIKE :search OR c.authorName LIKE :search')
-                ->setParameter('search', "%$search%")
+                ->andWhere('c.content LIKE :search OR c.authorName LIKE :search OR a.title LIKE :search')
+                ->setParameter('search', '%' . $search . '%')
             ;
-
         }
-
+        
+        if ($withSoftDeletes) {
+            $this->getEntityManager()->getFilters()->disable('softdeleteable');
+        }
+        
         return $qb
             ->orderBy('c.createdAt', 'DESC')
             ->getQuery()

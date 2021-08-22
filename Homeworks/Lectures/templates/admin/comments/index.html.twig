@@ -17,16 +17,10 @@
             <button type="submit" class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
         </div>
     </div>
-
     <div class="input-group mb-3">
         <div class="form-check">
-            <input id="showDeletedIn"
-                   type="checkbox"
-                   name="showDeleted"
-                   class="form-check-input"
-                   {% if app.request.query.has('showDeleted') %} checked {% endif %}
-            >
-            <label for="showDeletedIn" class="form-check-label">Показать удалённые</label>
+            <input type="checkbox" class="form-check-input" name="showDeleted" {% if app.request.query.has('showDeleted') %} checked {% endif %}>
+            <label class="form-check-label">Показать удаленные</label>
         </div>
     </div>
 </form>
@@ -45,7 +39,7 @@
     {% for comment in comments %}
         <tr>
             <td>
-                <a href="{{ path('app_article_show', { slug: comment.article.slug }) }}">
+                <a href="{{ path('app_article_show', { slug: comment.article.slug}) }}">
                     {{ comment.article.title }}
                 </a>
             </td>
