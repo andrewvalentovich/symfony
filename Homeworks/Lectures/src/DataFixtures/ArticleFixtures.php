@@ -3,9 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Tag;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ArticleFixtures extends BaseFixtures
+class ArticleFixtures extends BaseFixtures implements DependentFixtureInterface
 {
     private static $articleTitles = [
         'Есть ли жизнь после девятой жизни?',
@@ -48,6 +50,22 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
                 ->setImageFilename($this->faker->randomElement(self::$articleImages))
             ;
 
+            /** @var Tag[] $tags */
+            $tags = [];
+            for ($i = 0; $i < $this->faker->numberBetween(0, 5); $i++) {
+                $tags[] = $this->getRandomReference(Tag::class);
+            }
+
+            foreach ($tags as $tag) {
+                $article->addTag($tag);
+            }
         });
+    }
+
+    public function getDependencies()
+    {
+        return [
+            TagFixtures::class,
+        ];
     }
 }
