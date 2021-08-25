@@ -16,7 +16,8 @@ class tagsController extends AbstractController
      */
     public function index(Request $request, TagRepository $tagRepository, PaginatorInterface $paginator): Response
     {
-        $countView = ($request->query->get('countView') == 'noValue') ? 20 : $request->query->get('countView');
+
+        $countView = ($request->query->getInt('countView') == 0) ? 20 : $request->query->getInt('countView');
 
         $pagination = $paginator->paginate(
             $tagRepository->findAllWithSoftDelNoResult(
