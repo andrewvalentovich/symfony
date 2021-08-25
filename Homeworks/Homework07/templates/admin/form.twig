@@ -13,7 +13,7 @@
     <div class="form-group">
         <label class="form-check-label" for="countView">Count of view</label>
         <select class="form-control" id="countView" name="countView">
-            <option {% if countView == 'noValue' %}selected{% endif %} value="noValue" selected >По умолчанию</option>
+            <option {% if countView == '20s'%}selected{% endif %} value="20s">По умолчанию</option>
             <option {% if countView == '10' %}selected{% endif %} value="10">10</option>
             <option {% if countView == '20' %}selected{% endif %} value="20">20</option>
             <option {% if countView == '50' %}selected{% endif %} value="50">50</option>

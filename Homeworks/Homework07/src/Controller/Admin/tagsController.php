@@ -16,16 +16,13 @@ class tagsController extends AbstractController
      */
     public function index(Request $request, TagRepository $tagRepository, PaginatorInterface $paginator): Response
     {
-
-        $countView = ($request->query->getInt('countView') == 0) ? 20 : $request->query->getInt('countView');
-
         $pagination = $paginator->paginate(
             $tagRepository->findAllWithSoftDelNoResult(
                 $request->query->get('q'),
                 $request->query->has('showDeleted')
             ), /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            $countView/*limit per page*/
+            $request->query->getInt('countView', 20) /*limit per page*/
         );
 
         return $this->render('admin/tags/index.html.twig', [
