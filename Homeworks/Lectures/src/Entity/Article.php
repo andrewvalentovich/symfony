@@ -252,7 +252,9 @@ class Article
 
     public function removeTag(Tag $tag): self
     {
-        $this->tags->removeElement($tag);
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
 
         return $this;
     }

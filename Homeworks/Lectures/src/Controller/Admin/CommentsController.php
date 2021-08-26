@@ -16,15 +16,10 @@ class CommentsController extends AbstractController
      */
     public function index(CommentRepository $commentRepository, Request $request, PaginatorInterface $paginator)
     {    
-
-
         $pagination = $paginator->paginate(
-            $comments = $commentRepository->findAllWithSearchQuery(
-                $request->query->get('q'),
-                $request->query->has('showDeleted')
-            ), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
+            $commentRepository->findAllWithSearchQuery($request->query->get('q'), $request->query->has('showDeleted')),
+            $request->query->getInt('page', 1),
+            10
         );
 
         return $this->render('admin/comments/index.html.twig', [

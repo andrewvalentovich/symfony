@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Tag;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class ArticleFixtures extends BaseFixtures implements DependentFixtureInterface
 {
@@ -49,16 +49,17 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
                 ->setLikeCount($this->faker->numberBetween(0, 10))
                 ->setImageFilename($this->faker->randomElement(self::$articleImages))
             ;
-
-            /** @var Tag[] $tags */
+            
+            /** @var Tag $tags */
             $tags = [];
             for ($i = 0; $i < $this->faker->numberBetween(0, 5); $i++) {
-                $tags[] = $this->getRandomReference(Tag::class);
+                $tags[] = $this->getRandomReference(Tag::class); 
             }
 
             foreach ($tags as $tag) {
                 $article->addTag($tag);
             }
+            
         });
     }
 
