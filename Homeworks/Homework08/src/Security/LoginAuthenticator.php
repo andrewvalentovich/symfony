@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,11 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 
 class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
+    /**
+     * @var User
+     */
+    private $user;
+
     /**
      * @var UserRepository
      */
@@ -85,22 +91,18 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        return $this->userRepository->findOneBy(['email' => $credentials['email']]);
+        $user = $this->userRepository->findOneBy(['email' => $credentials['email']]);
+
+        if (!$user->getIsActive()) {
+            throw new CustomUserMessageAuthenticationException("Уходи бабайка!");
+        }
+
+        return $user;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        $status = false;
-
-        if ($user->getIsActive()) {
-            if ($this->userPasswordEncoder->isPasswordValid($user, $credentials['password'])) {
-                $status = true;
-            }
-        } else {
-            throw new CustomUserMessageAuthenticationException("Уходи бабайка!");
-        }
-
-        return $status;
+        return $this->userPasswordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)

@@ -47,30 +47,34 @@ class UserCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $user_id = $input->getArgument('id');
-        $reverse = $input->getOption('reverse');
 
         $user = $this->userRepository->findOneBy(['id' => $user_id]);
 
-        if (false === $reverse) {           // Если не установлена опция --reverse (деактивируем пользователя)
-            if (! $user->getIsActive()) {   // Если пользователь не активен, выводим ошибку
-                $io->error(sprintf('User with id = %d is deactive', $user_id));
-            } else {
-                $this->entityManagerDatabaseVerdictSet(false, $user);
-
-                $io->success(sprintf('User with id = %d has been successly deactivated', $user_id));
-            }
-        } else {                            // (активируем пользователя)
-            if ($user->getIsActive()) {     // Если пользователь активен, выводим ошибку, иначе активируем
-                $io->error(sprintf('User with id = %d is active', $user_id));
-            } else {
-                $this->entityManagerDatabaseVerdictSet(true, $user);
-
-                $io->success(sprintf('User with id = %d has been successly activated', $user_id));
-            }
-        }
+        $isOption = (false === $input->getOption('reverse')) ? false : true;
+        $this->makeVerdict($isOption, $user_id, $user, $io);
 
         return Command::SUCCESS;
     }
+
+    private function makeVerdict(bool $verdict, int $user_id, User $user, SymfonyStyle $io)
+    {
+        if ($user->getIsActive() == $verdict) {
+            $io->error(sprintf($this->errorMessage[(int)$verdict], $user_id));
+        } else {
+            $this->entityManagerDatabaseVerdictSet($verdict, $user);
+            $io->success(sprintf($this->successMessage[(int)$verdict], $user_id));
+        }
+    }
+
+    private $successMessage = [
+        '1'       =>  'User with id = %d has been successly activated',
+        '0'     =>  'User with id = %d has been successly deactivated'
+    ];
+
+    private $errorMessage = [
+        '1'       =>  'User with id = %d is active',
+        '0'     =>  'User with id = %d is deactive',
+    ];
 
     private function entityManagerDatabaseVerdictSet(bool $verdict, User $user)
     {
