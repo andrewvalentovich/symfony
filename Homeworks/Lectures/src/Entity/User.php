@@ -128,4 +128,18 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getAvatarUrl(string $size = null):string
+    {
+        $url = sprintf(
+            "https://robohash.org/%s.jpg?set=set4",
+            mb_strtolower(str_replace(" ", "_", $this->firstName))
+        );
+
+        if ($size) {
+            $url .= "&size={$size}x{$size}";
+        }
+
+        return $url;
+    }
 }
