@@ -188,7 +188,7 @@
         "version": "1.2.2"
     },
     "php-http/message": {
-        "version": "1.11.2"
+        "version": "1.12.0"
     },
     "php-http/message-factory": {
         "version": "v1.0.2"
@@ -405,7 +405,7 @@
         "version": "v1.23.1"
     },
     "symfony/property-access": {
-        "version": "v5.0.11"
+        "version": "v5.3.4"
     },
     "symfony/routing": {
         "version": "5.3",
@@ -433,16 +433,16 @@
         ]
     },
     "symfony/security-core": {
-        "version": "v5.0.11"
+        "version": "v5.3.6"
     },
     "symfony/security-csrf": {
-        "version": "v5.0.11"
+        "version": "v5.3.4"
     },
     "symfony/security-guard": {
-        "version": "v5.0.11"
+        "version": "v5.2.12"
     },
     "symfony/security-http": {
-        "version": "v5.0.11"
+        "version": "v5.2.12"
     },
     "symfony/service-contracts": {
         "version": "v2.4.0"
