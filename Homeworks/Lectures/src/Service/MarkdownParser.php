@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\Security;
 
 class MarkdownParser
 {
+
+
     /**
      * @var Parsedown
      */

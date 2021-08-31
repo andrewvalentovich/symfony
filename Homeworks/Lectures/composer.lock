@@ -3142,16 +3142,16 @@
         },
         {
             "name": "php-http/httplug-bundle",
-            "version": "1.22.1",
+            "version": "1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/HttplugBundle.git",
-                "reference": "a135ee6541599998c62a5bddede5d7fe63bcb669"
+                "reference": "ce7aeed5b416f036a63d75b26528e1c861ae7c7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/a135ee6541599998c62a5bddede5d7fe63bcb669",
-                "reference": "a135ee6541599998c62a5bddede5d7fe63bcb669",
+                "url": "https://api.github.com/repos/php-http/HttplugBundle/zipball/ce7aeed5b416f036a63d75b26528e1c861ae7c7e",
+                "reference": "ce7aeed5b416f036a63d75b26528e1c861ae7c7e",
                 "shasum": ""
             },
             "require": {
@@ -3242,9 +3242,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/HttplugBundle/issues",
-                "source": "https://github.com/php-http/HttplugBundle/tree/1.22.1"
+                "source": "https://github.com/php-http/HttplugBundle/tree/1.23.0"
             },
-            "time": "2021-07-26T14:22:17+00:00"
+            "time": "2021-08-30T12:01:14+00:00"
         },
         {
             "name": "php-http/logger-plugin",
@@ -5240,16 +5240,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.14.7",
+            "version": "v1.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "7572da35a83906a43e8173827dd0c909041a1fc2"
+                "reference": "c2605222ee4984899bdc93b3e56f502fc79bafc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/7572da35a83906a43e8173827dd0c909041a1fc2",
-                "reference": "7572da35a83906a43e8173827dd0c909041a1fc2",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/c2605222ee4984899bdc93b3e56f502fc79bafc6",
+                "reference": "c2605222ee4984899bdc93b3e56f502fc79bafc6",
                 "shasum": ""
             },
             "require": {
@@ -5288,7 +5288,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.14.7"
+                "source": "https://github.com/symfony/flex/tree/v1.15.1"
             },
             "funding": [
                 {
@@ -5304,7 +5304,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-08-28T10:37:08+00:00"
+            "time": "2021-08-30T14:55:05+00:00"
         },
         {
             "name": "symfony/framework-bundle",

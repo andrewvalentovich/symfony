@@ -20,13 +20,13 @@ class UserFixtures extends BaseFixtures
     {
         $this->create(User::class, function (User $user) {
             $user
-                ->setEmail('admin@mail.ru')
-                ->setFirstName('admin')
-                ->setPassword($this->passwordEncoder->encodePassword($user, 'admin'))
+                ->setEmail('admin@catcascar.ru')
+                ->setFirstName('Администратор')
+                ->setPassword($this->passwordEncoder->encodePassword($user, '123456'))
                 ->setRoles(['ROLE_ADMIN'])
             ;
         });
-
+    
         $this->createMany(User::class, 10, function (User $user) {
             $user
                 ->setEmail($this->faker->email)

@@ -21,6 +21,7 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
+
     /**
      * @var UserRepository
      */
@@ -98,6 +99,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
         $path = $this->getTargetPath($request->getSession(), $providerKey);
+        
         return new RedirectResponse($path ?: $this->urlGenerator->generate('app_homepage'));
     }
 
