@@ -2,8 +2,11 @@
 
 namespace App\Controller\Api;
 
+use App\Repository\ApiTokenRepository;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,8 +16,17 @@ class UserController extends AbstractController
      * @Route("/api/v1/user", name="api_user")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function index(): Response
+    public function index(LoggerInterface $apiLogger, ApiTokenRepository $apiTokenRepository, Request $request): Response
     {
-        return $this->json($this->getUser(), 200, [], ['groups' => ['main']]);
+        $user = $this->getUser();
+
+        $apiLogger->info("Logger info", [
+            'username'  =>  $user->getUserIdentifier(),
+            'token'     =>  $apiTokenRepository->findOneBy(['user' => $user])->getToken(),
+            'route'     =>  $request->attributes->get("_route"),
+            'url'       =>  $request->getUri()
+        ]);
+
+        return $this->json($user, 200, [], ['groups' => ['main']]);
     }
 }

@@ -1,3 +1,3 @@
 GET https://127.0.0.1:8000/api/v1/user
 Accept: application/json
-Authorization: Bearer b4405013035871ac256ae54e7eb76867cbe7a958
+Authorization: Bearer ab76311027703af72aadf2e15f19505a306909b8
