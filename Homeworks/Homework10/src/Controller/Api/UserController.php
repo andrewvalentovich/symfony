@@ -21,7 +21,7 @@ class UserController extends AbstractController
 
         $apiLogger->info("Logger info", [
             'username'  =>  $user->getUserIdentifier(),
-            'token'     =>  substr($request->headers->get('Authorization'), 7),
+            'token'     =>  $request->attributes->get("_auth_token"),
             'route'     =>  $request->attributes->get("_route"),
             'url'       =>  $request->getUri()
         ]);

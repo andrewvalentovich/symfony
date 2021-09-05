@@ -57,6 +57,8 @@ class ApiTokenAuthenticator extends AbstractAuthenticator
             throw new CustomUserMessageAuthenticationException('No active user');
         }
 
+        $request->attributes->set('_auth_token', $apiToken);
+
         return new SelfValidatingPassport(new UserBadge($token->getUser()->getUserIdentifier()));
     }
 
