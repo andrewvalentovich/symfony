@@ -2,7 +2,6 @@
 
 namespace App\Controller\Api;
 
-use App\Repository\ApiTokenRepository;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,13 +15,13 @@ class UserController extends AbstractController
      * @Route("/api/v1/user", name="api_user")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function index(LoggerInterface $apiLogger, ApiTokenRepository $apiTokenRepository, Request $request): Response
+    public function index(LoggerInterface $apiLogger, Request $request): Response
     {
         $user = $this->getUser();
 
         $apiLogger->info("Logger info", [
             'username'  =>  $user->getUserIdentifier(),
-            'token'     =>  $apiTokenRepository->findOneBy(['user' => $user])->getToken(),
+            'token'     =>  substr($request->headers->get('Authorization'), 7),
             'route'     =>  $request->attributes->get("_route"),
             'url'       =>  $request->getUri()
         ]);

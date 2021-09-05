@@ -54,16 +54,18 @@ class ApiToken
     {
         return $this->token;
     }
+
     public function getExpiresAt(): ?\DateTimeInterface
     {
         return $this->expiresAt;
     }
+
     public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function isExpired():bool
+    public function isExpired(): bool
     {
         return $this->getExpiresAt() <= new \DateTime();
     }

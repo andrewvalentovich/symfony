@@ -47,7 +47,6 @@ class ApiTokenAuthenticator extends AbstractAuthenticator
             throw new CustomUserMessageAuthenticationException('No API token provided');
         }
 
-
         $token = $this->apiTokenRepository->findOneBy(['token' => $apiToken]);
 
         if ($token->isExpired()) {
