@@ -94,7 +94,6 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-
         $user = $this->userRepository->findOneBy(['email' => $credentials['email']]);
 
         if (!$user->getIsActive()) {
