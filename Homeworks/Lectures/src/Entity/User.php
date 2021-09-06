@@ -45,7 +45,7 @@ class User implements UserInterface
     private $firstName;
 
     /**
-     * @ORM\OneToMany(targetEntity=ApiToken::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ApiToken::class, mappedBy="user")
      */
     private $apiTokens;
 
@@ -175,7 +175,8 @@ class User implements UserInterface
 
     public function removeApiToken(ApiToken $apiToken): self
     {
-        if ($this->apiTokens->removeElement($apiToken)) {
+        if ($this->apiTokens->contains($apiToken)) {
+            $this->apiTokens->removeElement($apiToken);
             // set the owning side to null (unless already changed)
             if ($apiToken->getUser() === $this) {
                 $apiToken->setUser(null);

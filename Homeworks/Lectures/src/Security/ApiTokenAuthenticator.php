@@ -3,7 +3,8 @@
 namespace App\Security;
 
 use App\Repository\ApiTokenRepository;
-use Symfony\Component\HttpFoundation;
+use Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -19,21 +20,15 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
      */
     private $apiTokenRepository;
 
-    /**
-     * ApiTokenAuthenticator constructor.
-     */
     public function __construct(ApiTokenRepository $apiTokenRepository)
     {
-
         $this->apiTokenRepository = $apiTokenRepository;
     }
 
     public function supports(Request $request)
     {
-        return $request->headers->has('Authorization') && 0 === strpos(
-                $request->headers->get('Authorization'),
-                'Bearer'
-            );
+        return $request->headers->has('Authorization')
+            && 0 === strpos($request->headers->get('Authorization'), 'Bearer ');
     }
 
     public function getCredentials(Request $request)
@@ -44,15 +39,15 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = $this->apiTokenRepository->findOneBy(['token' => $credentials]);
-
+        
         if (! $token) {
-            throw new CustomUserMessageAuthenticationException("Invalid token");
+            throw new CustomUserMessageAuthenticationException('Invalid token');
         }
-
+        
         if ($token->isExpired()) {
-            throw new CustomUserMessageAuthenticationException("Token expired");
+            throw new CustomUserMessageAuthenticationException('Token expired');
         }
-
+        
         return $token->getUser();
     }
 
@@ -63,19 +58,19 @@ class ApiTokenAuthenticator extends AbstractGuardAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new HttpFoundation\JsonResponse([
-            'message' => $exception->getMessage()
+        return new JsonResponse([
+            'message' => $exception->getMessage(),
         ], 401);
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         // continue
     }
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        throw new \Exception('Never called');
+        throw new Exception('Never called');
     }
 
     public function supportsRememberMe()

@@ -26,10 +26,9 @@ class UserFixtures extends BaseFixtures
                 ->setPassword($this->passwordEncoder->encodePassword($user, '123456'))
                 ->setRoles(['ROLE_ADMIN'])
             ;
-
+            
             $manager->persist(new ApiToken($user));
         });
-
     
         $this->createMany(User::class, 10, function (User $user) use ($manager) {
             $user

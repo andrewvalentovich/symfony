@@ -4,17 +4,17 @@ namespace App\Entity;
 
 use App\Repository\ApiTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Faker\Provider\DateTime;
-use App\Entity\User;
 
 /**
- * @ORM\Entity(repositoryClass=ApiTokenRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ApiTokenRepository", repositoryClass=ApiTokenRepository::class)
  */
 class ApiToken
 {
+    
+
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -31,7 +31,6 @@ class ApiToken
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="apiTokens")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -43,7 +42,7 @@ class ApiToken
     {
         $this->user = $user;
         $this->token = sha1(uniqid('token'));
-        $this->expiresAt = new \DateTime('+1 Day');
+        $this->expiresAt = new \DateTime('+1 day');
     }
 
     public function getId(): ?int
@@ -55,7 +54,7 @@ class ApiToken
     {
         return $this->token;
     }
-
+    
     public function getExpiresAt(): ?\DateTimeInterface
     {
         return $this->expiresAt;
@@ -65,9 +64,10 @@ class ApiToken
     {
         return $this->user;
     }
-
-    public function isExpired():bool
+    
+    public function isExpired()
     {
         return $this->getExpiresAt() <= new \DateTime();
     }
+
 }
