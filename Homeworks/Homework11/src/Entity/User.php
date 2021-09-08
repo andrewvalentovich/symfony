@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * Groups("main")
+     * @Groups("main")
      */
     private $email;
 
@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * Groups("main")
+     * @Groups("main")
      */
     private $firstName;
 
