@@ -60,6 +60,7 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
     {
         return [
             TagFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

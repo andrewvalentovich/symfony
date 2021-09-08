@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class ArticleVoter extends Voter
 {
+
     /**
      * @var Security
      */
@@ -20,7 +21,7 @@ class ArticleVoter extends Voter
         $this->security = $security;
     }
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
@@ -28,15 +29,14 @@ class ArticleVoter extends Voter
             && $subject instanceof Article;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        /** @var Article $subject */
-
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
+        /** @var Article $subject */
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
@@ -44,11 +44,11 @@ class ArticleVoter extends Voter
                 if ($subject->getAuthor() == $user) {
                     return true;
                 }
-
+                
                 if ($this->security->isGranted('ROLE_ADMIN_ARTICLE')) {
                     return true;
                 }
-
+                
                 break;
         }
 

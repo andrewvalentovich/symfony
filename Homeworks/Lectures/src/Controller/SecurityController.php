@@ -32,47 +32,48 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \LogicException(
+            'This method can be blank - it will be intercepted by the logout key on your firewall.'
+        );
+    }
+
+    /**
      * @Route("/register", name="app_register")
      */
     public function register(
         Request $request,
-        UserPasswordEncoderInterface $userPasswordEncoder,
+        UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $guard,
-        LoginFormAuthenticator $loginFormAuthenticator
+        LoginFormAuthenticator $authenticator
     ) {
         if ($request->isMethod('POST')) {
             $user = new User();
-
             $user
                 ->setEmail($request->request->get('email'))
                 ->setFirstName($request->request->get('firstName'))
-                ->setPassword($userPasswordEncoder->encodePassword($user, $request->request->get('password')))
-            ;
+                ->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
 
             $em = $this->getDoctrine()->getManager();
-
             $em->persist($user);
             $em->flush();
 
             return $guard->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
-                $loginFormAuthenticator,
+                $authenticator,
                 'main'
             );
         }
 
-        return $this->render('security/register.html.twig', [
-            'error' =>  '',
-        ]);
-    }
-
-
-    /**
-     * @Route("/logout", name="app_logout")
-     */
-    public function logout()
-    {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        return $this->render(
+            'security/register.html.twig',
+            [
+                'error' => '',
+            ]
+        );
     }
 }
