@@ -26,12 +26,14 @@ class ArticlesController extends AbstractController
     public function index(ArticleRepository $articleRepository, Request $request, PaginatorInterface $paginator)
     {
         $pagination = $paginator->paginate(
-            $articleRepository->findAllWithSearchQuery($request->query->get('q'), $request->query->has('showDeleted')),
+            $articleRepository->latest(),
             $request->query->getInt('page', 1),
             10
         );
 
-        return $this->render('admin/article/index.html.twig', []);
+        return $this->render('admin/article/index.html.twig', [
+            'pagination' => $pagination
+        ]);
     }
 
     /**
@@ -59,7 +61,7 @@ class ArticlesController extends AbstractController
 
             $this->addFlash('flash_message', 'Статья успешно создана');
 
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_admin_articles');
         }
 
 

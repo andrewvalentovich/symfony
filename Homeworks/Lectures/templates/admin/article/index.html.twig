@@ -17,12 +17,12 @@
         {% for article in pagination %}
             <tr>
                 <td>
-                    <a href="{{ path('app_article_show', { slug: comment.article.slug}) }}">
+                    <a href="{{ path('app_article_show', { slug: article.slug}) }}">
                         {{ article.title }}
                     </a>
                 </td>
                 <td>{{ article.author.firstName }}</td>
-                <td>..</td>
+                <td><i class="fas fa-{{ article.isPublished ? 'check' : 'times' }}"></i></td>
             </tr>
         {% else %}
             <tr>

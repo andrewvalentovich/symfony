@@ -74,7 +74,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
     }
     
-    private function latest(QueryBuilder $qb = null)
+    public function latest(QueryBuilder $qb = null)
     {
         return $this->getOrCreateQueryBuilder($qb)->orderBy('a.publishedAt', 'DESC');
     }
