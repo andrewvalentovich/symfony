@@ -51,11 +51,6 @@ class ArticlesController extends AbstractController
             /** @var Article $article */
             $article = $form->getData();
 
-            $article
-                ->setAuthor($this->getUser())
-                ->setPublishedAt(new \DateTime())
-            ;
-
             $em->persist($article);
             $em->flush();
 
