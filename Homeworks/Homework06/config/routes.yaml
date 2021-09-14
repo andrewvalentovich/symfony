@@ -1,4 +1,0 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::homepage,
-#                App\Controller\ArticleController::article_page
