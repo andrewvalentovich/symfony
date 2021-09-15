@@ -336,17 +336,5 @@ class Article
                 ->atPath('title')
                 ->addViolation();
         }
-
-        if (strlen($this->getTitle()) <= 3) {
-            $context->buildViolation('Заголовок должен содержать минимум 3 символа')
-                ->atPath('title')
-                ->addViolation();
-        }
-
-        if (strlen($this->getDescription()) <= 100) {
-            $context->buildViolation('Описание статьи должено содержать минимум 100 символов')
-                ->atPath('description')
-                ->addViolation();
-        }
     }
 }

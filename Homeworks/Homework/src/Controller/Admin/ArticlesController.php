@@ -88,7 +88,7 @@ class ArticlesController extends AbstractController
         FormInterface $form,
         ArticleWordsFilter $filter = null,
         array $filenameArray = null,
-        bool $article_filter = false
+        bool $articleFilter = false
     ) {
         $form->handleRequest($request);
 
@@ -97,8 +97,8 @@ class ArticlesController extends AbstractController
             /** @var Article $article */
             $article = $form->getData();
 
-            if ($article_filter) {
-                $article->setImageFilename($filenameArray[rand(0, 2)]);
+            if ($articleFilter) {
+                $article->setImageFilename($filenameArray[rand(0, count($filenameArray)-1)]);
                 $words = ['стакан', 'жук', 'точка'];
 
                 $title = $article->getTitle();
