@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Criteria;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -24,6 +26,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="У вашей великолепной статьи должен быть такой же заголовок")
      */
     private $title;
 
@@ -128,6 +131,11 @@ class Article
 
         return $this;
     }
+    
+    public function isPublished(): bool
+    {
+        return null !== $this->getPublishedAt();
+    }
 
     public function getLikeCount(): ?int
     {
@@ -164,12 +172,7 @@ class Article
 
         return $this;
     }
-    
-    public function getImagePath()
-    {
-        return 'images/' . $this->getImageFilename();
-    }
-    
+
     public function getAuthorAvatarPath()
     {
         return sprintf(
@@ -260,8 +263,17 @@ class Article
         return $this;
     }
 
-    public function isPublished(): bool
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
     {
-        return null !== $this->getPublishedAt();
+        if (mb_stripos($this->getTitle(), 'собак') !== false) {
+            $context
+                ->buildViolation('Про собак писать запрещено')
+                ->atPath('title')
+                ->addViolation()
+            ;            
+        }
     }
 }
