@@ -5,8 +5,11 @@ namespace App\DataFixtures;
 use App\Entity\Article;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Service\FileUploader;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 
 class ArticleFixtures extends BaseFixtures implements DependentFixtureInterface
 {
@@ -22,6 +25,20 @@ class ArticleFixtures extends BaseFixtures implements DependentFixtureInterface
         'car2.jpg',
         'car3.jpeg',
     ];
+    /**
+     * @var FileUploader
+     */
+    private $articleFileUploader;
+
+    /**
+     * ArticleFixtures constructor.
+     */
+    public function __construct(FileUploader $articleFileUploader)
+    {
+
+        $this->articleFileUploader = $articleFileUploader;
+    }
+
 
     public function loadData(ObjectManager $manager)
     {
@@ -37,10 +54,16 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
                 $article->setPublishedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
             }
 
+            $fileName = $this->faker->randomElement(self::$articleImages);
+
+            $tmpFileName = sys_get_temp_dir() . '/' . $fileName;
+
+            (new Filesystem())->copy(dirname(dirname(__DIR__)) . '/public/images/' . $fileName, $tmpFileName, true);
+
             $article
                 ->setAuthor($this->getRandomReference(User::class))
                 ->setLikeCount($this->faker->numberBetween(0, 10))
-                ->setImageFilename($this->faker->randomElement(self::$articleImages))
+                ->setImageFilename($this->articleFileUploader->uploadFile(new File(new File($tmpFileName))))
             ;
             
             /** @var Tag $tags */

@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ArticleFormType extends AbstractType
 {
@@ -32,10 +35,24 @@ class ArticleFormType extends AbstractType
         $article = $options['data'] ?? null;
         
         $cannotEditAuthor = $article && $article->getId() && $article->isPublished();
-    
+
+        $imageContsraints = [
+            new Image([
+                'maxSize'   =>  '1M',
+            ])
+        ];
+
+        if (! $article || ! $article->getImageFilename()) {
+            $imageContsraints = new NotNull([
+               'message'    =>  'Не выбрано изображение статьи'
+            ]);
+        }
+
         $builder
             ->add('image', FileType::class, [
                 'mapped' => false,
+                'required' => false,
+                'constraints' => $imageContsraints
             ])
             ->add('title', TextType::class, [
                 'label' => 'Укажите название статьи',

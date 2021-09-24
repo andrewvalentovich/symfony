@@ -6,8 +6,7 @@ use App\Entity\Article;
 use App\Entity\User;
 use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
-use App\Repository\CommentRepository;
-use Closure;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -15,9 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @method User|null getUser()
@@ -45,11 +42,11 @@ class ArticlesController extends AbstractController
      * @IsGranted("ROLE_ADMIN_ARTICLE")
      * @Route("/admin/articles/create", name="app_admin_articles_create")
      */
-    public function create(EntityManagerInterface $em, Request $request)
+    public function create(EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
-        $form = $this->createForm(ArticleFormType::class);
+        $form = $this->createForm(ArticleFormType::class, new Article());
 
-        if ($article = $this->handleFormRequest($form, $em, $request)) {
+        if ($article = $this->handleFormRequest($form, $em, $request, $articleFileUploader)) {
 
             $this->addFlash('flash_message', 'Статья успешно создана');
 
@@ -66,13 +63,13 @@ class ArticlesController extends AbstractController
      * @Route("/admin/articles/{id}/edit", name="app_admin_article_edit")
      * @IsGranted("MANAGE", subject="article")
      */
-    public function edit(Article $article, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
+    public function edit(Article $article, EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
         $form = $this->createForm(ArticleFormType::class, $article, [
             'enable_published_at' => true,
         ]);
 
-        if ($article = $this->handleFormRequest($form, $em, $request, $slugger)) {
+        if ($article = $this->handleFormRequest($form, $em, $request, $articleFileUploader)) {
 
             $this->addFlash('flash_message', 'Статья успешно изменена');
 
@@ -87,7 +84,7 @@ class ArticlesController extends AbstractController
         ]);
     }
     
-    private function handleFormRequest(FormInterface $form, EntityManagerInterface $em, Request $request, SluggerInterface $slugger)
+    private function handleFormRequest(FormInterface $form, EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
         $form->handleRequest($request);
 
@@ -95,21 +92,12 @@ class ArticlesController extends AbstractController
             /** @var Article $article */
             $article = $form->getData();
 
-//            dd($request->files->all());
-
             /** @var UploadedFile|null $image */
             $image = $form->get('image')->getData();
 
-            $fileName = $slugger
-                ->slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME))
-                ->append('-', uniqid())
-                ->append('.', $image->guessExtension())
-                ->toString()
-            ;
-
-            $newFile = $image->move($this->getParameter('article_uploads_dir'), $fileName);
-
-            $article->setImageFilename($fileName);
+            if ($image) {
+                $article->setImageFilename($articleFileUploader->uploadFile($image));
+            }
 
             $em->persist($article);
             $em->flush();

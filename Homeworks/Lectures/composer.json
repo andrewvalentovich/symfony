@@ -22,6 +22,7 @@
         "doctrine/orm": "^2",
         "http-interop/http-factory-guzzle": "^1.0",
         "knplabs/knp-paginator-bundle": "^5.2",
+        "liip/imagine-bundle": "^2.6",
         "nesbot/carbon": "^2.32",
         "nexylan/slack-bundle": "^2.2",
         "php-http/guzzle6-adapter": "^2.0",
