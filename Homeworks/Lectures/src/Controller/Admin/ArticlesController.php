@@ -96,7 +96,7 @@ class ArticlesController extends AbstractController
             $image = $form->get('image')->getData();
 
             if ($image) {
-                $article->setImageFilename($articleFileUploader->uploadFile($image));
+                $article->setImageFilename($articleFileUploader->uploadFile($image, $article->getImageFilename()));
             }
 
             $em->persist($article);

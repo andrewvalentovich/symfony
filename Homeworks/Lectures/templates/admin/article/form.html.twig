@@ -1,7 +1,7 @@
 {{ form_start(articleForm) }}
 
     {% if articleForm.vars.data.imageFilename %}
-        <img src="{{ uploaded_asset('article_uploads', articleForm.vars.data.imageFilename) | imagine_filter('article_preview') }}">
+        <img src="{{ articleForm.vars.data.imageFilename | imagine_filter('article_preview') }}">
     {% endif %}
 
     {{ form_row(articleForm.image, {

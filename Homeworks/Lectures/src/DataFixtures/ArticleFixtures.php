@@ -56,14 +56,10 @@ do eiusmod tempor incididunt [Сметанка](/) ut labore et dolore magna ali
 
             $fileName = $this->faker->randomElement(self::$articleImages);
 
-            $tmpFileName = sys_get_temp_dir() . '/' . $fileName;
-
-            (new Filesystem())->copy(dirname(dirname(__DIR__)) . '/public/images/' . $fileName, $tmpFileName, true);
-
             $article
                 ->setAuthor($this->getRandomReference(User::class))
                 ->setLikeCount($this->faker->numberBetween(0, 10))
-                ->setImageFilename($this->articleFileUploader->uploadFile(new File(new File($tmpFileName))))
+                ->setImageFilename($this->articleFileUploader->uploadFile(new File(dirname(dirname(__DIR__)) . '/public/images/' . $fileName, $fileName)))
             ;
             
             /** @var Tag $tags */

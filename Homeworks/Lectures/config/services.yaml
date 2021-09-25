@@ -8,6 +8,7 @@ parameters:
     app.food_forum_enabled: '%env(bool:FOOD_FORUM_ENABLED)%'
     cache_adapter: cache.adapter.filesystem
     article_uploads: 'uploads/articles'
+    article_uploads_url: '%env(SITE_URL)%/%article_uploads%'
     article_uploads_dir: '%kernel.project_dir%/public/%article_uploads%'
 
 services:
@@ -19,6 +20,8 @@ services:
         bind:
             $debug: '%kernel.debug%'
             Demontpx\ParsedownBundle\Parsedown: '@demontpx_parsedown.parsedown'
+
+            League\Flysystem\FilesystemInterface $articleFilesystem: '@oneup_flysystem.upload_articles_filesystem'
 
 #            App\Service\FileUploader $articleFileUploader: '@file_uploader.article'
 #            App\Service\FileUploader $avatarFileUploader: '@file_uploader.avatar'
@@ -44,7 +47,3 @@ services:
 #            $uploadsPath: '%article_uploads_dir%'
 #
 #    file_uploader.avatar:
-
-    App\Service\FileUploader:
-        arguments:
-            $uploadsPath: '%article_uploads_dir%'
