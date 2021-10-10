@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\Model\UserRegistrationFormModel;
 use App\Form\UserRegistrationFormType;
 use App\Security\LoginAuthenticator;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +43,8 @@ class SecurityController extends AbstractController
         UserPasswordEncoderInterface $userPasswordEncoder,
         GuardAuthenticatorHandler $guard,
         LoginAuthenticator $loginAuthenticator,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        Mailer $mailer
     ) {
         $form = $this->createForm(UserRegistrationFormType::class);
         $form->handleRequest($request);
@@ -61,6 +63,8 @@ class SecurityController extends AbstractController
                     $userModel->plainPassword
                 ))
             ;
+
+            $mailer->sendMail($user);
 
             $em->persist($user);
             $em->flush();

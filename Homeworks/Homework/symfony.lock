@@ -8,6 +8,9 @@
     "league/flysystem": {
         "version": "1.1.5"
     },
+    "league/html-to-markdown": {
+        "version": "5.0.1"
+    },
     "league/mime-type-detection": {
         "version": "1.8.0"
     },
@@ -35,6 +38,9 @@
         "files": [
             "./config/packages/oneup_flysystem.yaml"
         ]
+    },
+    "symfony/css-selector": {
+        "version": "v5.3.4"
     },
     "symfony/mailer": {
         "version": "4.3",
@@ -69,5 +75,11 @@
             "./config/packages/test/validator.yaml",
             "./config/packages/validator.yaml"
         ]
+    },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.3"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.3"
     }
 }
