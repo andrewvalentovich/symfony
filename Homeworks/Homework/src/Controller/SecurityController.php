@@ -64,7 +64,11 @@ class SecurityController extends AbstractController
                 ))
             ;
 
-            $mailer->sendMail($user);
+            $mailer->sendMail(
+                $user,
+                'Spill-Coffee-On-The-Keyboard',
+                'email/welcome.html.twig'
+            );
 
             $em->persist($user);
             $em->flush();

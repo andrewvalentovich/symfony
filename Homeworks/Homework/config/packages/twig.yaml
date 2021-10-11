@@ -5,6 +5,7 @@ twig:
         - bootstrap_4_layout.html.twig
     paths:
         'public\images': images
+        'assets\styles': css
         '%kernel.project_dir%/templates/partial': partial
 when@test:
     twig:

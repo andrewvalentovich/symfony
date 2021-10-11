@@ -20,18 +20,20 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendMail(User $user)
+    public function sendMail(User $user, string $subject, string $templatePath, $entityVar = null)
     {
         $email = (new TemplatedEmail())
             ->from(new Address('noreply@symfony.skillbox', 'Spill-Coffee-On-The-Keyboard '))
             ->to(new Address($user->getEmail(), $user->getFirstName()))
-            ->subject("Spill-Coffee-On-The-Keyboard")
-            ->htmlTemplate('email/welcome.html.twig')
+            ->subject($subject)
+            ->htmlTemplate($templatePath)
             ->context([
-                'user'  =>  $user
+                'entityVar'  =>  $entityVar
             ])
         ;
 
+//        "Spill-Coffee-On-The-Keyboard"
+//        'email/welcome.html.twig'
         $this->mailer->send($email);
     }
 }
