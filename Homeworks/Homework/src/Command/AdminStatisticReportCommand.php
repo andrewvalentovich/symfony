@@ -69,22 +69,22 @@ class AdminStatisticReportCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $adminEmail = $input->getArgument('adminEmail');
-        $dateFrom = $input->getOption('dateFrom')->format('d.m.Y');
-        $dateTo = $input->getOption('dateTo')->format('d.m.Y');
+        $dateFrom = $input->getOption('dateFrom');
+        $dateTo = $input->getOption('dateTo');
 
-        $articlesPublished = $this->articleRepository->findAllPublishedByParams(
-            $input->getOption('dateFrom'),
-            $input->getOption('dateTo')
-        );
-        $articlesCreated = $this->articleRepository->findAllCreatedByParams(
-            $input->getOption('dateFrom'),
-            $input->getOption('dateTo')
-        );
+        $articlesPublished = $this->articleRepository->findAllPublishedByParams($dateFrom, $dateTo);
+        $articlesCreated = $this->articleRepository->findAllCreatedByParams($dateFrom, $dateTo);
         $users = $this->userRepository->findAllActive();
 
-        $io->success($adminEmail . "\n" . $dateFrom . "\n" . $dateTo);
+        $io->success($adminEmail . "\n" . $dateFrom->format('d.m.Y') . "\n" . $dateTo->format('d.m.Y'));
 
-        $this->createStatistics($dateFrom, $dateTo, $users, $articlesCreated, $articlesPublished);
+        $this->createStatistics(
+            $dateFrom->format('d.m.Y'),
+            $dateTo->format('d.m.Y'),
+            $users,
+            $articlesCreated,
+            $articlesPublished,
+        );
 
         $this->mailer->sendMail(
             $adminEmail,
@@ -102,7 +102,7 @@ class AdminStatisticReportCommand extends Command
     }
 
     protected function createStatistics(
-        string $dateFrom,
+        $dateFrom,
         string $dateTo,
         $users,
         $articlesCreated,
