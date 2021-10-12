@@ -20,6 +20,7 @@
         "nesbot/carbon": "^2.50",
         "oneup/flysystem-bundle": "^3.7",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "phpoffice/phpspreadsheet": "^1.18",
         "sensio/framework-extra-bundle": "^6.1",
         "stof/doctrine-extensions-bundle": "^1.6",
         "symfony/asset": "5.3.*",

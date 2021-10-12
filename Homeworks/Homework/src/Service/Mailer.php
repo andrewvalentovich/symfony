@@ -6,6 +6,7 @@ namespace App\Service;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Address;
 
 class Mailer
@@ -20,20 +21,19 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendMail(User $user, string $subject, string $templatePath, $entityVar = null)
+    public function sendMail(string $to, string $toName, string $subject, string $templatePath, \Closure $callback = null)
     {
         $email = (new TemplatedEmail())
-            ->from(new Address('noreply@symfony.skillbox', 'Spill-Coffee-On-The-Keyboard '))
-            ->to(new Address($user->getEmail(), $user->getFirstName()))
+            ->from(new Address('noreply@symfony.skillbox', 'Spill-Coffee-On-The-Keyboard'))
+            ->to(new Address($to, $toName))
             ->subject($subject)
             ->htmlTemplate($templatePath)
-            ->context([
-                'entityVar'  =>  $entityVar
-            ])
         ;
 
-//        "Spill-Coffee-On-The-Keyboard"
-//        'email/welcome.html.twig'
+        if ($callback) {
+            $callback($email);
+        }
+
         $this->mailer->send($email);
     }
 }

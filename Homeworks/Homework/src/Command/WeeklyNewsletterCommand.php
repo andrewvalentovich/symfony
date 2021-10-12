@@ -6,10 +6,12 @@ use App\Entity\User;
 use App\Repository\ArticleRepository;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Mime\Address;
 
 class WeeklyNewsletterCommand extends Command
 {
@@ -62,10 +64,17 @@ class WeeklyNewsletterCommand extends Command
 
         foreach ($users as $user) {
             $this->mailer->sendMail(
-                $user,
+                $user->getEmail(),
+                $user->getFirstName(),
                 'Еженедельная рассылка новостей',
                 'email/weekly-newsletter.html.twig',
-                $articles
+                function (TemplatedEmail $email) use ($articles){
+                    $email
+                        ->context([
+                            'articles'  =>  $articles
+                        ])
+                    ;
+                }
             );
             sleep(1);
             $io->progressAdvance();

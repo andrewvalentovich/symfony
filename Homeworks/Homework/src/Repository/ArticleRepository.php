@@ -46,6 +46,28 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllPublishedByParams(\DateTime $dateFrom, \DateTime $dateTo)
+    {
+        return $this->published($this->latest())
+            ->andWhere('a.publishedAt >= :dateFrom AND a.publishedAt <= :dateTo')
+            ->setParameter(':dateFrom', $dateFrom)
+            ->setParameter(':dateTo', $dateTo)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findAllCreatedByParams(\DateTime $dateFrom, \DateTime $dateTo)
+    {
+        return $this->latest()
+            ->andWhere('a.createdAt >= :dateFrom AND a.createdAt <= :dateTo')
+            ->setParameter(':dateFrom', $dateFrom)
+            ->setParameter(':dateTo', $dateTo)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findAllWithSoftDelNoResult(string $search = null)
     {
         $qb = $this->createQueryBuilder('a')
