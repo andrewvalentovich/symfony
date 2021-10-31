@@ -3,7 +3,6 @@
 
 namespace App\EventSubscriber;
 
-
 use App\Events\UserRegisteredEvent;
 use App\Service\Mailer;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -28,7 +27,7 @@ class UserRegisteredSubscriber implements EventSubscriberInterface
         $this->mailer->sendMail(
             $user->getEmail(),
             $user->getFirstName(),
-            'Spill-Coffee-On-The-Keyboard',
+            'Приветствуем тебя, новый пользователь',
             'email/welcome.html.twig',
             function (TemplatedEmail $email) use ($user){
                 $email
