@@ -59,7 +59,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "SymfonySkillbox\\HomeworkBundle\\": "lib/HomeworkBundle/src"
         }
     },
     "autoload-dev": {
