@@ -4,10 +4,7 @@ namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
-class SpamFilter extends Constraint
+class RegistrationSpam extends Constraint
 {
     public function validatedBy()
     {

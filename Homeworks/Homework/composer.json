@@ -60,7 +60,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "SymfonySkillbox\\HomeworkBundle\\": "lib/HomeworkBundle/src"
+            "SymfonySkillbox\\HomeworkBundle\\": "lib/HomeworkBundle/src/"
         }
     },
     "autoload-dev": {
