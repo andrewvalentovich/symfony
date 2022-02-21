@@ -5,7 +5,32 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true"/>
-        <service id="symfonyskillbox.homework.unit_factory" class="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" public="true"/>
-        <service id="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" class="symfonyskillbox.homework.unit_factory" public="false"/>
+
+        <!--Cервис Фабрики юнитов-->
+        <service id="symfony_skillbox_homework.unit_factory" class="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" public="true"/>
+        <service id="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" alias="symfony_skillbox_homework.unit_factory" public="false"/>
+        <!---->
+
+        <!--Cервис Фабрики юнитов-->
+        <service id="symfony_skillbox_homework.strategy" class="SymfonySkillbox\HomeworkBundle\StrategyInterface" public="true"/>
+        <service id="SymfonySkillbox\HomeworkBundle\StrategyInterface" alias="symfony_skillbox_homework.strategy" public="false"/>
+        <!---->
+
+        <!--Cтратегия производства юнитов по силе-->
+        <service id="symfony_skillbox_homework.strategy_strength" class="SymfonySkillbox\HomeworkBundle\StrengthStrategy" public="true"/>
+        <service id="SymfonySkillbox\HomeworkBundle\StrengthStrategy" alias="symfony_skillbox_homework.strategy_strength" public="false"/>
+        <!---->
+
+        <!--Cтратегия производства юнитов по объему здоровья-->
+        <service id="symfony_skillbox_homework.strategy_health" class="SymfonySkillbox\HomeworkBundle\HealthStrategy" public="true"/>
+        <service id="SymfonySkillbox\HomeworkBundle\HealthStrategy" alias="symfony_skillbox_homework.strategy_health" public="false"/>
+        <!---->
+
+        <!--Cервис Фабрики юнитов-->
+        <service id="symfony_skillbox_homework.produce_unit_command" class="SymfonySkillbox\HomeworkBundle\HomeworkBundleProduceUnitsCommand" public="true"/>
+        <service id="SymfonySkillbox\HomeworkBundle\HomeworkBundleProduceUnitsCommand" alias="symfony_skillbox_homework.produce_unit_command" public="false"/>
+        <!---->
+
+
     </services>
 </container>
