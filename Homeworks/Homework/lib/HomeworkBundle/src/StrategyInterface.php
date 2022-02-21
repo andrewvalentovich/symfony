@@ -10,5 +10,5 @@ interface StrategyInterface
      * @return Unit|null
      */
 
-    public function next(array $units, int $resource): ?Unit;
+    public function next(array $units, int $resource);
 }

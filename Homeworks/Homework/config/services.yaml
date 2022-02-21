@@ -39,8 +39,6 @@ services:
         arguments:
             $logger: '@monolog.logger.markdown'
 
-    SymfonySkillbox\HomeworkBundle\UnitFactory: null
-
 monolog:
     channels: ['markdown']
     handlers:
