@@ -6,15 +6,7 @@ namespace SymfonySkillbox\HomeworkBundle;
 
 class UnitFactory
 {
-    private $strategy;
-    private $enableSolder;
-    private $enableArcher;
 
-    /**
-     * @param StrategyInterface $strategy
-     * @param bool $enableSolder
-     * @param bool $enableArcher
-     */
     public function __construct(StrategyInterface $strategy, bool $enableSolder, bool $enableArcher)
     {
         $this->strategy = $strategy;

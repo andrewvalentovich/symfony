@@ -7,8 +7,12 @@
         <defaults autowire="true" autoconfigure="true"/>
 
         <!--Cервис Фабрики юнитов-->
-        <service id="symfony_skillbox_homework.unit_factory" class="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" public="true"/>
-        <service id="SymfonySkillbox\HomeworkBundle\UnitFactoryBundle" alias="symfony_skillbox_homework.unit_factory" public="false"/>
+        <service id="symfony_skillbox_homework.unit_factory" class="SymfonySkillbox\HomeworkBundle\UnitFactory" public="true">
+<!--            <argument key="$strategy" type="service" id="symfony_skillbox_homework.unit_factory" />-->
+<!--                        <argument key="$enableSolder" type="service" id="symfony_skillbox.produce_unit_command" />-->
+<!--                        <argument key="$enableArcher" type="service" id="symfony_skillbox.produce_unit_command" />-->
+        </service>
+        <service id="SymfonySkillbox\HomeworkBundle\UnitFactory" alias="symfony_skillbox_homework.unit_factory" public="false"/>
         <!---->
 
         <!--Cервис Фабрики юнитов-->
@@ -26,9 +30,10 @@
         <service id="SymfonySkillbox\HomeworkBundle\HealthStrategy" alias="symfony_skillbox_homework.strategy_health" public="false"/>
         <!---->
 
-        <!--Cервис Фабрики юнитов-->
-        <service id="symfony_skillbox_homework.produce_unit_command" class="SymfonySkillbox\HomeworkBundle\HomeworkBundleProduceUnitsCommand" public="true"/>
-        <service id="SymfonySkillbox\HomeworkBundle\HomeworkBundleProduceUnitsCommand" alias="symfony_skillbox_homework.produce_unit_command" public="false"/>
+        <!--Консольная комманда Фабрики юнитов-->
+        <service id="symfony_skillbox.produce_unit_command" class="SymfonySkillbox\HomeworkBundle\Command\HomeworkBundleProduceUnitsCommand" lazy="true" public="true">
+            <tag name="console.command" command="homework-bundle:produce-units"/>
+        </service>
         <!---->
 
 
